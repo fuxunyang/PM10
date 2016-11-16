@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_type"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@mipmap/bt_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_32"
+        android:paddingRight="@dimen/padding_32">
+
+        <Button
+            android:id="@+id/bt_pie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_8"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_pie_pre" />
+
+        <Button
+            android:id="@+id/bt_real"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_real_nor" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_pie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@color/alpha_66"
+        android:orientation="vertical">
+
+        <com.sky.pm.ui.widget.PieChartView
+            android:id="@+id/pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="10dp" />
+
+        <com.sky.pm.ui.widget.MyRecycleView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_32"
+            android:layout_marginRight="@dimen/margin_32" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_32"
+            android:layout_marginRight="@dimen/margin_32"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/pie"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_real"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_8"
+        android:background="@color/alpha_66"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include layout="@layout/adapter_real" />
+
+        <com.sky.pm.ui.widget.MyRecycleView
+            android:id="@+id/recycle1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

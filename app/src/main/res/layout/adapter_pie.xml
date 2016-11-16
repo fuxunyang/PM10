@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_4">
+
+    <com.sky.pm.ui.widget.CircleImageView
+        android:id="@+id/img_describe"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_text"
+        android:layout_alignTop="@+id/tv_text"
+        android:src="#82c31c" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_4"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_toRightOf="@id/img_describe"
+        android:text="优[0-50]"
+        android:textColor="@color/white"
+        android:textSize="@dimen/micro" />
+
+
+</RelativeLayout>

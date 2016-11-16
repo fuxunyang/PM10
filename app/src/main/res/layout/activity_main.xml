@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sky="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    sky:divider="@drawable/div_line_h"
+    sky:showDividers="middle">
+
+    <include layout="@layout/activity_title" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/frame_manager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/background" />
+
+    <!--<include layout="@layout/main_bottom" />-->
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/black"
+        android:orientation="horizontal">
+
+        <com.sky.pm.ui.widget.TabTextView
+            android:id="@+id/id_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/padding_4"
+            sky:tab_color="@color/lightgray"
+            sky:tab_icon="@mipmap/tab_01"
+            sky:tab_text="@string/tab_main"
+            sky:tab_textcolor="@color/white"
+            sky:tab_textsize="@dimen/micro" />
+
+        <com.sky.pm.ui.widget.TabTextView
+            android:id="@+id/id_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/padding_4"
+            sky:tab_color="@color/lightgray"
+            sky:tab_icon="@mipmap/tab_02"
+            sky:tab_text="@string/tab_two"
+            sky:tab_textcolor="@color/white"
+            sky:tab_textsize="@dimen/micro" />
+
+        <com.sky.pm.ui.widget.TabTextView
+            android:id="@+id/id_three"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/padding_4"
+            sky:tab_color="@color/lightgray"
+            sky:tab_icon="@mipmap/tab_03"
+            sky:tab_text="@string/tab_three"
+            sky:tab_textcolor="@color/white"
+            sky:tab_textsize="@dimen/micro" />
+
+        <com.sky.pm.ui.widget.TabTextView
+            android:id="@+id/id_four"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/padding_4"
+            sky:tab_color="@color/lightgray"
+            sky:tab_icon="@mipmap/tab_04"
+            sky:tab_text="@string/tab_my"
+            sky:tab_textcolor="@color/white"
+            sky:tab_textsize="@dimen/micro" />
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
+</LinearLayout>

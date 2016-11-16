@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_32">
+
+        <View
+            android:id="@+id/center"
+            android:layout_width="0.1dp"
+            android:layout_height="0.1dp"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/img_man"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_16"
+            android:layout_toLeftOf="@id/center"
+            android:src="@mipmap/ic_man" />
+
+        <ImageView
+            android:id="@+id/img_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_man"
+            android:layout_alignRight="@id/img_man"
+            android:layout_toLeftOf="@id/center"
+            android:src="@mipmap/ic_sure"
+            android:visibility="visible" />
+
+
+        <ImageView
+            android:id="@+id/img_woman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_toRightOf="@id/center"
+            android:src="@mipmap/ic_woman" />
+
+        <ImageView
+            android:id="@+id/img_sure1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/img_woman"
+            android:layout_alignRight="@id/img_woman"
+            android:layout_toLeftOf="@id/center"
+            android:src="@mipmap/ic_sure"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginLeft="@dimen/margin_32"
+        android:layout_marginRight="@dimen/margin_32">
+
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_32"
+            android:text="修改昵称"
+            android:textSize="@dimen/medium" />
+
+        <EditText
+            android:id="@+id/et_nick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_32"
+            android:layout_toRightOf="@id/tv_nick"
+            android:textSize="@dimen/medium" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginLeft="@dimen/margin_32"
+        android:layout_marginRight="@dimen/margin_32">
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_32"
+            android:text="手机绑定"
+            android:textSize="@dimen/medium" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_32"
+            android:layout_toRightOf="@id/tv_phone"
+            android:textSize="@dimen/medium" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginLeft="@dimen/margin_32"
+        android:layout_marginRight="@dimen/margin_32">
+
+        <TextView
+            android:id="@+id/tv_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_32"
+            android:text="修改密码"
+            android:textSize="@dimen/medium" />
+
+        <EditText
+            android:id="@+id/et_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_32"
+            android:layout_toRightOf="@id/tv_pass"
+            android:textSize="@dimen/medium" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginLeft="@dimen/margin_64"
+        android:layout_marginRight="@dimen/margin_64"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@color/common_main_orange"
+        android:text="注销"
+        android:textColor="@color/white"
+        android:textSize="@dimen/large" />
+
+</LinearLayout>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_type"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_type"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/margin_32"
+            android:drawablePadding="@dimen/margin_16"
+            android:drawableRight="@mipmap/ic_wea_01"
+            android:text="济宁"
+            android:textColor="@color/white"
+            android:textSize="@dimen/Xlarge" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <TextView
+                android:id="@+id/tv_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="@color/white"
+                android:textSize="72dp" />
+
+            <TextView
+                android:layout_marginLeft="@dimen/margin_16"
+                android:id="@+id/tv_txtd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_temp"
+                android:layout_alignTop="@+id/tv_temp"
+                android:layout_toRightOf="@+id/tv_temp"
+                android:gravity="center"
+                android:text="优"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_wind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_32"
+                android:drawableLeft="@mipmap/ic_wea_03"
+                android:text="2级"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_wuranchengdu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_32"
+                android:layout_marginTop="@dimen/margin_4"
+                android:background="@color/alpha_66"
+                android:drawableLeft="@mipmap/ic_wea_04"
+                android:paddingLeft="@dimen/padding_8"
+                android:paddingRight="@dimen/padding_8"
+                android:text="2级"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_linjin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:background="@color/alpha_66">
+
+            <TextView
+                android:id="@+id/tv_zuijin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_32"
+                android:text="临近预报"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_below="@+id/tv_zuijin"
+                android:background="@color/white" />
+
+            <com.sky.pm.ui.widget.MyRecycleView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view1" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_yizhou"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_32"
+            android:background="@color/alpha_66">
+
+            <TextView
+                android:id="@+id/tv_yizhou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_32"
+                android:text="一周预报"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_below="@+id/tv_yizhou"
+                android:background="@color/white" />
+
+            <com.sky.pm.ui.widget.MyRecycleView
+                android:id="@+id/recycle1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/view" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>

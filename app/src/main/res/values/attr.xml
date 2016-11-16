@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TabTextView">
+        <attr name="tab_icon" format="reference" />
+        <attr name="tab_color" format="color" />
+        <attr name="tab_text" format="string" />
+        <attr name="tab_textsize" format="dimension" />
+        <attr name="tab_textcolor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="LineChartView">
+        <attr name="today_background" format="color|reference" />
+    </declare-styleable>
+    <declare-styleable name="CircleProgress">
+        <!--圆的半径-->
+        <attr name="radius" format="dimension" />
+        <!--总进度条颜色-->
+        <attr name="total_color" format="color" />
+        <!--进度条颜色-->
+        <attr name="pro_color" format="color" />
+        <!--进度条宽度-->
+        <attr name="pro_width" format="dimension" />
+        <!--字体内容-->
+        <attr name="text" format="string" />
+        <!--字体颜色-->
+        <attr name="textcolor" format="color" />
+        <!--字体颜色-->
+        <attr name="textsize" format="dimension" />
+        <!--字体背景-->
+        <attr name="text_background" format="color|reference" />
+    </declare-styleable>
+
+
+</resources>

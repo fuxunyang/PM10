@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_type"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@mipmap/bt_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_32"
+        android:paddingRight="@dimen/padding_32">
+
+        <Button
+            android:id="@+id/bt_real"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_8"
+            android:layout_weight="1"
+            android:background="@mipmap/bt_06_pre" />
+
+        <Button
+            android:id="@+id/bt_pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_weight="1"
+            android:background="@mipmap/bt_07_nor" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@mipmap/bt_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_32"
+        android:paddingRight="@dimen/padding_32">
+
+        <Button
+            android:id="@+id/bt_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_bg"
+            android:text="等级" />
+
+        <Button
+            android:id="@+id/bt_name"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_bg"
+            android:text="设备名称" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@mipmap/bt_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_32"
+        android:paddingRight="@dimen/padding_32">
+
+        <Button
+            android:id="@+id/bt_begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_bg"
+            android:text="开始时间" />
+
+        <Button
+            android:id="@+id/bt_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_bg"
+            android:text="结束时间" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@mipmap/bt_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_32"
+        android:paddingRight="@dimen/padding_32">
+
+        <Button
+            android:id="@+id/bt_seek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/btn_seek" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:layout_marginRight="@dimen/margin_8"
+        android:background="@color/alpha_66"
+        android:orientation="vertical">
+
+        <include layout="@layout/adapter_type04" />
+
+        <com.sky.pm.ui.widget.MyRecycleView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/alpha_66" />
+
+    </LinearLayout>
+</LinearLayout>

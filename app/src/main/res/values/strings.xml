@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PM10</string>
+    <string name="action_settings">Settings</string>
+    <string name="toast_exit">再按一次返回键回到桌面</string>
+    <string name="toast_isinternet">您的网络未连接</string>
+    <string name="dialog_login">是否登录</string>
+
+    <string name="error_01">账号或密码错误</string>
+    <string name="error_02">登录失败</string>
+    <string name="error_03">请求失败</string>
+    <string name="success">登录成功</string>
+    <!--首界面所需-->
+    <string name="tab_main">首页</string>
+    <string name="tab_two">天气预报</string>
+    <string name="tab_three">企业风采</string>
+    <string name="tab_my">个人中心</string>
+    <string name="pie">全市共建PM10监测站点xx个，其中监测数值为优良的XX个，监测数值为良的XX个，监测数值为轻度污染的XX个，监测数值为中度污染的XX个</string>
+</resources>

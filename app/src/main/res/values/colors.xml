@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="gray">#808080</color><!--灰色 -->
+
+    <color name="white_alpha">#11FFFFFF</color><!--透明 -->
+
+    <color name="alpha_66">#44000000</color><!--红色 -->
+    <!--主色-->
+    <color name="lightgray">#999999</color><!--浅灰-->
+    <color name="darkgray">#666666</color><!--深灰-->
+
+
+    <color name="pie1">#82c31c</color><!--深灰-->
+    <color name="pie2">#41aedb</color><!--深灰-->
+    <color name="pie3">#fb9a00</color><!--深灰-->
+    <color name="pie4">#fab255</color><!--深灰-->
+
+
+
+
+    <color name="blue">#3bb4f9</color><!--蓝色-->
+    <color name="darkblue">#00a6f0</color><!--蓝色-->
+    <color name="orange">#ef7874</color><!--橙色-->
+    <color name="grey_light">#d1d1d1</color>
+
+    <color name="background">#e8eaec</color><!--浅灰背景-->
+    <color name="darkbule">#4c72a8</color><!--深蓝-->
+    <color name="lightblue">#1499e2</color><!--浅蓝-->
+
+
+    <color name="red">#ff0000</color><!--白色-->
+    <color name="white">#ffffff</color><!--白色-->
+    <color name="black">#000000</color><!--黑色 -->
+    <color name="alpha_black">#33333333</color><!--黑色 -->
+    <color name="common_main_blue">#0094e3</color><!--蓝色-->
+
+    <color name="common_main_orange">#fd6e34</color><!--橙色-->
+
+
+    <color name="transparent">#00000000</color><!--透明-->
+
+</resources>
