@@ -12,13 +12,6 @@
         android:background="@mipmap/bg_type"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:gravity="center"
-            android:text="模范厂区实时数据"
-            android:textColor="@color/white"
-            android:textSize="@dimen/medium" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +19,7 @@
             android:background="@color/alpha_66"
             android:orientation="vertical">
 
-            <include layout="@layout/adapter_type04" />
+            <include layout="@layout/adapter_type03" />
 
             <com.sky.pm.ui.widget.MyRecycleView
                 android:id="@+id/recycle"
@@ -34,40 +27,14 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="?actionBarSize"
-                android:gravity="center"
-                android:text="PM10浓度曲线"
-                android:textColor="@color/white"
-                android:textSize="@dimen/medium" />
-
-            <Button
-                android:id="@+id/bt_one"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_8"
-                android:layout_toRightOf="@id/tv_title"
-                android:background="@drawable/button_bg"
-                android:text="1小时" />
-
-            <Button
-                android:id="@+id/bt_day"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_8"
-                android:layout_toRightOf="@id/bt_one"
-                android:background="@drawable/button_bg"
-                android:text="24小时" />
-        </RelativeLayout>
+            android:gravity="center"
+            android:paddingTop="@dimen/padding_16"
+            android:text="过去24小时PM10浓度变化"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium" />
 
         <LinearLayout
             android:layout_width="match_parent"

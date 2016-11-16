@@ -11,14 +11,14 @@ import com.sky.pm.R;
 import com.sky.pm.model.Latest;
 
 /**
- * Created by 李彬 on 2016/11/15.
+ * Created by 李彬 on 2016/11/16.
  */
-public class Type04Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
-    public Type04Adapter(int layoutId) {
+public class Type03Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
+    public Type03Adapter(int layoutId) {
         super(layoutId);
     }
 
-    public Type04Adapter(int layoutId, int layoutFootViewId) {
+    public Type03Adapter(int layoutId, int layoutFootViewId) {
         super(layoutId, layoutFootViewId);
     }
 
@@ -30,7 +30,7 @@ public class Type04Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
     @Override
     protected void onAchieveHolder(RecyclerHolder holder, int position) {
         holder.setText(R.id.tv_name, datas.get(position).getStationName());
-        holder.setText(R.id.tv_date, datas.get(position).getDataTime());
+        holder.setText(R.id.tv_pm10, datas.get(position).getDataValue());
         int level = datas.get(position).getAQILevel();
         if (level == 1) {
             holder.setText(R.id.tv_level, "优");

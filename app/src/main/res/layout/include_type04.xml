@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:background="@mipmap/bt_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/padding_32"
+    android:paddingRight="@dimen/padding_32"
+    tools:showIn="@layout/fragment_type04">
+
+    <Button
+        android:id="@+id/bt_real"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_weight="1"
+        android:background="@mipmap/bt_06_pre" />
+
+    <Button
+        android:id="@+id/bt_pm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:layout_weight="1"
+        android:background="@mipmap/bt_07_nor" />
+</LinearLayout>

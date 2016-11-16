@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
+    android:layout_height="40dp"
     android:orientation="horizontal">
 
 
     <TextView
         android:id="@+id/tv_name"
         style="@style/list_style"
-        android:text="厂区名称" />
+        android:text="监测点名称" />
 
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/tv_pm10"
         style="@style/list_style"
-        android:text="采集时间" />
+        android:text="PM10" />
 
-    <TextView
-        android:id="@+id/tv_level"
-        style="@style/list_style"
-        android:text="环评等级" />
 
     <TextView
         android:id="@+id/tv_aqi1"
         style="@style/list_style"
-        android:text="AQI指数" />
+        android:text="AQI" />
 
     <RelativeLayout
         android:id="@+id/layout"
         style="@style/list_style"
-        android:text="AQI指数"
         android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_aqi"
             style="@style/list_style"
             android:layout_width="60dp"
-            android:background="@drawable/button_bg"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_bg"
             android:padding="@dimen/padding_4"
-            android:text="AQI指数" />
+            android:text="AQI" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_level"
+        style="@style/list_style"
+        android:text="质量等级" />
 </LinearLayout>

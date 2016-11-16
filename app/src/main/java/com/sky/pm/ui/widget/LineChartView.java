@@ -21,9 +21,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by yaobaohua on 2015/12/7 0007. Email 2584899504@qq.com
- */
 public class LineChartView extends View {
 
     //网格线画笔
@@ -49,6 +46,8 @@ public class LineChartView extends View {
     private Drawable textbackground;//文字的背景
 
     public List<RateDate> mDatas;
+    private int screenH;
+
 
     public LineChartView(Context context) {
         this(context, null);
@@ -60,6 +59,8 @@ public class LineChartView extends View {
 
     public LineChartView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        screenH = ScreenUtils.getScreenH(context);
+
         TypedArray style = context.obtainStyledAttributes(attrs, R.styleable.LineChartView);
 
         int count = style.getIndexCount();
@@ -119,6 +120,13 @@ public class LineChartView extends View {
 
         gridBgPaint = new Paint();
         gridBgPaint.setColor(Color.parseColor("#fffdf8"));
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        setMeasuredDimension(getMeasuredWidth(), screenH / 3);
     }
 
     private int everyWidth;// 每格宽度

@@ -78,7 +78,7 @@ public class HttpDataUtils extends HttpUtilsBase {
     }
 
     /**
-     * 厂区监测
+     * 厂区监测 AQI指数
      *
      * @param callback
      */
@@ -92,6 +92,63 @@ public class HttpDataUtils extends HttpUtilsBase {
                 callback.onSuccessData(result.getRows());
 //                if (result.getTotal() == 0) callback.onSuccessData(false);
 //                else callback.onSuccessData(true);
+            }
+        });
+    }
+
+    /**
+     * 模范网格
+     *
+     * @param callback
+     */
+    public static void DMS_T_DATA_LATESTGetIListByJson(final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_LATESTService.asmx/DMS_T_DATA_LATESTGetIListByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"\",\"IsLike\":true},{\"Compare\":\"=\",\"FieldName\":\"AQILevel\",\"FieldValue\":\"\",\"IsLike\":false}]");
+        params.setCharset("gbk");
+        x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
+    /**
+     * 1小时
+     *
+     * @param callback
+     */
+    public static void DMS_T_DATA_MINUTEGetListByPageByJson(final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_MINUTEService.asmx/DMS_T_DATA_MINUTEGetListByPageByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationId\",\"FieldValue\":\"\",\"IsLike\":true}]");
+        params.addBodyParameter("orderby", "Id desc");
+        params.addBodyParameter("pageIndex", "1");
+        params.addBodyParameter("pageSize", "24");
+        params.setCharset("gbk");
+        x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
+    /**
+     * 24小时
+     *
+     * @param callback
+     */
+    public static void DMS_T_DATA_HOURGetListByPageByJson(final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_HOURService.asmx/DMS_T_DATA_HOURGetListByPageByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationId\",\"FieldValue\":\"\",\"IsLike\":true}]");
+        params.addBodyParameter("orderby", "Id desc");
+        params.addBodyParameter("pageIndex", "1");
+        params.addBodyParameter("pageSize", "24");
+        params.setCharset("gbk");
+        x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
             }
         });
     }
