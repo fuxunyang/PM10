@@ -1,12 +1,17 @@
 apply plugin: 'com.android.application'
-
+repositories {
+    flatDir {
+        dir 'libs'
+    }
+}
 android {
-//    signingConfigs {
-//        debug {
-//            storeFile file('D:/Android/PM10/app/dlhc.jks')
-//            storePassword 'android'
-//        }
-//    }
+    signingConfigs {
+        //your debug keystore
+        release {
+            storeFile file("dlhc.jks")
+            storePassword 'android'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
     defaultConfig {
@@ -15,7 +20,6 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
         main {
@@ -43,6 +47,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 

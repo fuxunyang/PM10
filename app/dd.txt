@@ -1,3 +1,4 @@
 keytool -list -v -keystore debug.keystore
 
 keytool -list -v -keystore dlhc.jks
+9C:A6:78:BB:12:18:06:55:49:17:7F:AA:38:7D:A5:54:43:2A:E6:35

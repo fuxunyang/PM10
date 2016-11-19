@@ -14,14 +14,15 @@
     <color name="darkgray">#666666</color><!--深灰-->
 
 
-    <color name="pie1">#82c31c</color><!--深灰-->
-    <color name="pie2">#41aedb</color><!--深灰-->
+    <color name="pie1">#27ba60</color><!--深灰-->
+    <color name="pie2">#f8e82a</color><!--深灰-->
     <color name="pie3">#fb9a00</color><!--深灰-->
     <color name="pie4">#fab255</color><!--深灰-->
 
 
 
 
+    <color name="gray01">#bebdbc</color><!--蓝色-->
     <color name="blue">#3bb4f9</color><!--蓝色-->
     <color name="darkblue">#00a6f0</color><!--蓝色-->
     <color name="orange">#ef7874</color><!--橙色-->

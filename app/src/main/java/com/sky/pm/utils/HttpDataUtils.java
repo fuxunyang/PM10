@@ -118,9 +118,9 @@ public class HttpDataUtils extends HttpUtilsBase {
      *
      * @param callback
      */
-    public static void DMS_T_DATA_MINUTEGetListByPageByJson(final IDataResultImpl<List<Latest>> callback) {
+    public static void DMS_T_DATA_MINUTEGetListByPageByJson(String id, final IDataResultImpl<List<Latest>> callback) {
         RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_MINUTEService.asmx/DMS_T_DATA_MINUTEGetListByPageByJson");
-        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationId\",\"FieldValue\":\"\",\"IsLike\":true}]");
+        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"StationId\",\"FieldValue\":\""+id+"\",\"IsLike\":false}]");
         params.addBodyParameter("orderby", "Id desc");
         params.addBodyParameter("pageIndex", "1");
         params.addBodyParameter("pageSize", "24");
@@ -138,9 +138,9 @@ public class HttpDataUtils extends HttpUtilsBase {
      *
      * @param callback
      */
-    public static void DMS_T_DATA_HOURGetListByPageByJson(final IDataResultImpl<List<Latest>> callback) {
+    public static void DMS_T_DATA_HOURGetListByPageByJson(String id, final IDataResultImpl<List<Latest>> callback) {
         RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_HOURService.asmx/DMS_T_DATA_HOURGetListByPageByJson");
-        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationId\",\"FieldValue\":\"\",\"IsLike\":true}]");
+        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"StationId\",\"FieldValue\":\""+id+"\",\"IsLike\":false}]");
         params.addBodyParameter("orderby", "Id desc");
         params.addBodyParameter("pageIndex", "1");
         params.addBodyParameter("pageSize", "24");

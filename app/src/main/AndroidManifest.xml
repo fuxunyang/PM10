@@ -43,7 +43,7 @@
             android:process=":remote"></service>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="7QxIGkFk7BQz7orjcB4eikbYgy40YWDa" />
+            android:value="8YGqWxhC0U3G5euZez4ZaggnVTYurt8z" />
 
         <activity
             android:name=".ui.activity.SplashActivity"

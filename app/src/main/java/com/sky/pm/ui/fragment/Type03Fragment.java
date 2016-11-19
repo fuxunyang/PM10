@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.sky.adapter.RecyclerAdapter;
 import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
@@ -44,13 +45,16 @@ public class Type03Fragment extends BaseFragment {
             switch (msg.what) {
                 case 1:
                     adapter.setDatas(list);
+                    getDay(adapter.getDatas().get(0).getStationId());
                     break;
                 case 222:
-//                    lineChart.fillDateForRateDate(day);
+                    lineChart.setRateDates(day);
                     break;
             }
         }
     };
+
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -64,13 +68,12 @@ public class Type03Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeFragment("厂区监测",new MapFragment());
+                activity.changeFragment("AQI指数", new Map03Fragment());
                 activity.setRight("详情");
             }
         });
         setRealView();
         getData();
-        getDay();
     }
 
 
@@ -84,11 +87,13 @@ public class Type03Fragment extends BaseFragment {
         });
     }
 
-    private void getDay() {
-        HttpDataUtils.DMS_T_DATA_HOURGetListByPageByJson(new IDataResultImpl<List<Latest>>() {
+    private void getDay(String id) {
+        HttpDataUtils.DMS_T_DATA_HOURGetListByPageByJson(id, new IDataResultImpl<List<Latest>>() {
             @Override
             public void onSuccessData(List<Latest> data) {
-                day = data;
+                if (data != null)
+                    day = data;
+
                 handler.sendEmptyMessage(222);
             }
         });
@@ -101,6 +106,17 @@ public class Type03Fragment extends BaseFragment {
 
         adapter = new Type03Adapter(R.layout.adapter_type03);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                getDay(adapter.getDatas().get(position).getStationId());
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 
 

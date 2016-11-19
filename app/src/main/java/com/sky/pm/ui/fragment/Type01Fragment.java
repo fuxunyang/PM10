@@ -116,7 +116,7 @@ public class Type01Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeFragment("厂区监测",new MapFragment());
+                activity.changeFragment("厂区监测",new Map01Fragment());
                 activity.setRight("详情");
             }
         });
@@ -159,10 +159,10 @@ public class Type01Fragment extends BaseFragment {
 
     private void setPie() {
         List items = new ArrayList<>();
-        items.add(new PieChartView.PieItem("零钱贷", you, getActivity().getResources().getColor(R.color.pie1)));
-        items.add(new PieChartView.PieItem("诚乾贷", liang, getActivity().getResources().getColor(R.color.pie2)));
-        items.add(new PieChartView.PieItem("散标理财", qing, getActivity().getResources().getColor(R.color.pie3)));
-        items.add(new PieChartView.PieItem("可用余额", zhong, getActivity().getResources().getColor(R.color.pie4)));
+        items.add(new PieChartView.PieItem("", you, getActivity().getResources().getColor(R.color.pie1)));
+        items.add(new PieChartView.PieItem("", liang, getActivity().getResources().getColor(R.color.pie2)));
+        items.add(new PieChartView.PieItem("", qing, getActivity().getResources().getColor(R.color.pie3)));
+        items.add(new PieChartView.PieItem("", zhong, getActivity().getResources().getColor(R.color.pie4)));
         pieChartView.setPieItems(items);
     }
 
