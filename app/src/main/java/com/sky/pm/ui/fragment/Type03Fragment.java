@@ -68,7 +68,10 @@ public class Type03Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeFragment("AQI指数", new Map03Fragment());
+                Map03Fragment fragment = new Map03Fragment();
+                fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
+                        Double.parseDouble(list.get(0).getLongitude()));
+                activity.changeFragment("AQI指数", fragment);
                 activity.setRight("详情");
             }
         });

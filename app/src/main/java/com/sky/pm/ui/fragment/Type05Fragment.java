@@ -53,7 +53,10 @@ public class Type05Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeFragment("设备管理", new Map05Fragment());
+                Map05Fragment fragment = new Map05Fragment();
+                fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
+                        Double.parseDouble(list.get(0).getLongitude()));
+                activity.changeFragment("设备管理", fragment);
                 activity.setRight("地图");
             }
         });

@@ -53,7 +53,10 @@ public class Type02Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeFragment("站点监测", new Map02Fragment());
+                Map02Fragment fragment = new Map02Fragment();
+                fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
+                        Double.parseDouble(list.get(0).getLongitude()));
+                activity.changeFragment("站点监测", fragment);
                 activity.setRight("详情");
             }
         });
