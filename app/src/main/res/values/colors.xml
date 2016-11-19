@@ -14,10 +14,12 @@
     <color name="darkgray">#666666</color><!--深灰-->
 
 
-    <color name="pie1">#27ba60</color><!--深灰-->
-    <color name="pie2">#f8e82a</color><!--深灰-->
-    <color name="pie3">#fb9a00</color><!--深灰-->
-    <color name="pie4">#fab255</color><!--深灰-->
+    <color name="pie1">#00a307</color><!--深灰-->
+    <color name="pie2">#7eaa00</color><!--深灰-->
+    <color name="pie3">#8e7100</color><!--深灰-->
+    <color name="pie4">#c92a0a</color><!--深灰-->
+    <color name="pie5">#522783</color><!--深灰-->
+    <color name="pie6">#63291a</color><!--深灰-->
 
 
 

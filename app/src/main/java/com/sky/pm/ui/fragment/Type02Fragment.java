@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.sky.adapter.RecyclerAdapter;
 import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
@@ -33,6 +34,7 @@ public class Type02Fragment extends BaseFragment {
     private Type02Adapter adapter;
     MainActivity activity;
     private List<Latest> list;
+    private int local= 0;
 
     Handler handler = new Handler() {
         @Override
@@ -54,8 +56,8 @@ public class Type02Fragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Map02Fragment fragment = new Map02Fragment();
-                fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
-                        Double.parseDouble(list.get(0).getLongitude()));
+                fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(local).getLatitude()),
+                        Double.parseDouble(list.get(local).getLongitude())));
                 activity.changeFragment("站点监测", fragment);
                 activity.setRight("详情");
             }
@@ -88,5 +90,16 @@ public class Type02Fragment extends BaseFragment {
         adapter = new Type02Adapter(R.layout.adapter_type02);
         recyclerView.setAdapter(adapter);
         adapter.setDatas(list);
+        adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                local= position;
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 }

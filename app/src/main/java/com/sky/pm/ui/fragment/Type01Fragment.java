@@ -117,8 +117,8 @@ public class Type01Fragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Map01Fragment fragment = new Map01Fragment();
-                fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
-                        Double.parseDouble(list.get(0).getLongitude()));
+                fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
+                        Double.parseDouble(list.get(0).getLongitude())));
                 activity.changeFragment("厂区监测",fragment);
                 activity.setRight("详情");
             }

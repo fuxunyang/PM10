@@ -37,6 +37,7 @@ public class Type03Fragment extends BaseFragment {
     private List<Latest> list;
     private List<Latest> day;
     private MainActivity activity;
+    private int local= 0;
 
     Handler handler = new Handler() {
         @Override
@@ -69,8 +70,8 @@ public class Type03Fragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Map03Fragment fragment = new Map03Fragment();
-                fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
-                        Double.parseDouble(list.get(0).getLongitude()));
+                fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(local).getLatitude()),
+                        Double.parseDouble(list.get(local).getLongitude())));
                 activity.changeFragment("AQI指数", fragment);
                 activity.setRight("详情");
             }
@@ -112,6 +113,7 @@ public class Type03Fragment extends BaseFragment {
         adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                local= position;
                 getDay(adapter.getDatas().get(position).getStationId());
             }
 
