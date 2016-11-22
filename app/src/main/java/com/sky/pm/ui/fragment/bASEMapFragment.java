@@ -1,6 +1,5 @@
 package com.sky.pm.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +26,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.sky.pm.R;
 import com.sky.pm.model.Latest;
 import com.sky.pm.ui.BaseFragment;
-import com.sky.pm.ui.activity.MainActivity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -47,7 +45,6 @@ public abstract class BaseMapFragment extends BaseFragment {
     protected MapView mMapView;
     protected BaiduMap mBaiduMap;
     protected List<Latest> list;
-    protected MainActivity activity;
 
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bdA = BitmapDescriptorFactory
@@ -79,7 +76,7 @@ public abstract class BaseMapFragment extends BaseFragment {
                         double lng = Double.parseDouble(list.get(i).getLongitude());
                         LatLng ll = new LatLng(lat, lng);
                         if (value >= 0 && value <= 50) {
-                            MarkerOptions marker =  new MarkerOptions().position(ll).icon(bdA).zIndex(5);
+                            MarkerOptions marker = new MarkerOptions().position(ll).icon(bdA).zIndex(5);
                             mBaiduMap.addOverlay(marker);
                             setText(i, lat, lng, R.color.pie1);
                         } else if (value >= 51 && value <= 100) {
@@ -107,6 +104,7 @@ public abstract class BaseMapFragment extends BaseFragment {
         }
 
     };
+
     public void setText(int i, double lat, double lng, int color) {
         // 添加文字
         LatLng llText = new LatLng(lat - 0.001, lng);
@@ -121,6 +119,7 @@ public abstract class BaseMapFragment extends BaseFragment {
                 .position(llValue);
         mBaiduMap.addOverlay(dateValue);
     }
+
     public void setHandler(Message msg) {
 
     }
@@ -133,14 +132,9 @@ public abstract class BaseMapFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = (MainActivity) activity;
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setSeek();
         mBaiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
         mBaiduMap.setMapStatus(msu);
@@ -153,6 +147,10 @@ public abstract class BaseMapFragment extends BaseFragment {
     }
 
     public abstract void setRight();
+
+    public void setSeek() {
+
+    }
 
     public abstract void getData();
 

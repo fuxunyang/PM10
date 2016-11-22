@@ -1,7 +1,6 @@
 package com.sky.pm.ui.fragment;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,6 @@ import android.view.View;
 
 import com.sky.pm.R;
 import com.sky.pm.ui.BaseFragment;
-import com.sky.pm.ui.activity.MainActivity;
 import com.sky.pm.ui.adapter.MainAdapter;
 
 import org.xutils.view.annotation.ContentView;
@@ -31,14 +29,8 @@ public class MainFragment extends BaseFragment {
 //    private String[] texts = {"我的银行卡", "我关注的标", "我的借款", "投资记录",
 //            "安全中心", "关于我们", "最新公告", "常见问题", "更多设置"};
     private List<Integer> myModels;
-    MainActivity activity;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = (MainActivity) activity;
 
-    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

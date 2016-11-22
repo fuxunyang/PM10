@@ -1,6 +1,5 @@
 package com.sky.pm.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +15,6 @@ import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.model.PieModel;
 import com.sky.pm.ui.BaseFragment;
-import com.sky.pm.ui.activity.MainActivity;
 import com.sky.pm.ui.adapter.Type01Adapter;
 import com.sky.pm.ui.adapter.TypeRealAdapter;
 import com.sky.pm.ui.widget.PieChartView;
@@ -66,7 +64,6 @@ public class Type01Fragment extends BaseFragment {
         R.drawable.pie4_bg, R.drawable.pie5_bg, R.drawable.pie6_bg};
     private String[] texts = {"优[00-50]", "轻度污染[101-150]", "良[51-100]", "中度污染[151-200]", "重度污染[201-300]", "严重污染[301-500]"};
     private List<PieModel> pies;
-    private MainActivity activity;
     private List<Latest> list;
     private int you = 0;
     private int liang = 0;
@@ -114,12 +111,6 @@ public class Type01Fragment extends BaseFragment {
             }
         }
     };
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = (MainActivity) activity;
-    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

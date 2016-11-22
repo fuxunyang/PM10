@@ -40,6 +40,7 @@
                 android:id="@+id/tv_inquiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/grey_light"
                 android:drawableTop="@mipmap/ic_down"
@@ -85,23 +86,23 @@
                 android:paddingRight="@dimen/padding_32"
                 android:visibility="gone">
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@mipmap/ic_tv_bg"
                     android:gravity="center"
-                    android:text="所属厂区" />
+                    android:hint="输入设备编码" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@mipmap/ic_tv_bg"
                     android:gravity="center"
-                    android:text="设备名称" />
+                    android:hint="输入设备名称" />
 
             </LinearLayout>
 

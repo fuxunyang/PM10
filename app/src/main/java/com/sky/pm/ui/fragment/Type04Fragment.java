@@ -78,9 +78,49 @@ public class Type04Fragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setRealView();
+        setSeek();
         getData();
     }
 
+    private boolean inquiry = false;
+
+    public void setSeek() {
+        activity.tvInquiry.setVisibility(View.VISIBLE);
+        activity.bt02.setVisibility(View.INVISIBLE);
+        activity.bt01.setText("等级");
+        activity.bt01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        activity.tvInquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setInquiry();
+            }
+        });
+        activity.btSeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void setInquiry() {
+        if (inquiry) {
+            activity.layout01.setVisibility(View.GONE);
+            activity.layout02.setVisibility(View.GONE);
+            activity.layout03.setVisibility(View.GONE);
+            inquiry = false;
+        } else {
+            activity.layout01.setVisibility(View.VISIBLE);
+            activity.layout02.setVisibility(View.VISIBLE);
+            activity.layout03.setVisibility(View.VISIBLE);
+            inquiry = true;
+        }
+    }
 
     private void getData() {
         HttpDataUtils.DMS_T_DATA_LATESTGetIListByJson(new IDataResultImpl<List<Latest>>() {

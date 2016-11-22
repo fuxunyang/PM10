@@ -1,6 +1,5 @@
 package com.sky.pm.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,12 +11,10 @@ import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.ui.BaseFragment;
-import com.sky.pm.ui.activity.MainActivity;
 import com.sky.pm.ui.adapter.Type05Adapter;
 import com.sky.pm.utils.HttpDataUtils;
 import com.sky.pm.utils.itemdecoration.DividerGridItemDecoration;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -31,7 +28,6 @@ public class Type05Fragment extends BaseFragment {
     @ViewInject(R.id.recycle)
     private RecyclerView recyclerView;
     private Type05Adapter adapter;
-    private MainActivity activity;
     private List<Latest> list;
     private int local= 0;
 
@@ -63,6 +59,7 @@ public class Type05Fragment extends BaseFragment {
                 activity.setRight("地图");
             }
         });
+        setSeek();
         getData();
     }
 
@@ -71,18 +68,39 @@ public class Type05Fragment extends BaseFragment {
             @Override
             public void onSuccessData(List<Latest> data) {
                 list = data;
-                LogUtil.d(data.size() + "");
                 handler.sendEmptyMessage(1);
             }
         });
     }
+    private boolean inquiry = false;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = (MainActivity) activity;
+    public void setSeek() {
+        activity.tvInquiry.setVisibility(View.VISIBLE);
+        activity.tvInquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setInquiry();
+            }
+        });
+        activity.btSeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
+    public void setInquiry() {
+        if (inquiry) {
+            activity.layout02.setVisibility(View.GONE);
+            activity.layout03.setVisibility(View.GONE);
+            inquiry = false;
+        } else {
+            activity.layout02.setVisibility(View.VISIBLE);
+            activity.layout03.setVisibility(View.VISIBLE);
+            inquiry = true;
+        }
+    }
     private void setRealView() {
         recyclerView.addItemDecoration(new DividerGridItemDecoration(getActivity()));
 

@@ -1,6 +1,5 @@
 package com.sky.pm.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +11,6 @@ import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.ui.BaseFragment;
-import com.sky.pm.ui.activity.MainActivity;
 import com.sky.pm.ui.adapter.Type03Adapter;
 import com.sky.pm.ui.widget.LineChartView;
 import com.sky.pm.utils.HttpDataUtils;
@@ -36,7 +34,6 @@ public class Type03Fragment extends BaseFragment {
     private Type03Adapter adapter;
     private List<Latest> list;
     private List<Latest> day;
-    private MainActivity activity;
     private int local= 0;
 
     Handler handler = new Handler() {
@@ -54,13 +51,6 @@ public class Type03Fragment extends BaseFragment {
             }
         }
     };
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = (MainActivity) activity;
-    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

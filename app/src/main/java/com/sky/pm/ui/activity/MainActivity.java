@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,23 +41,25 @@ public class MainActivity extends BaseActivity {
     private TabTextView four;
 
     @ViewInject(R.id.layout_seek)
-    protected LinearLayout layoutSeek;
+    public LinearLayout layoutSeek;
     @ViewInject(R.id.layout_01)
-    protected LinearLayout layout01;
+    public LinearLayout layout01;
     @ViewInject(R.id.layout_02)
-    protected LinearLayout layout02;
+    public LinearLayout layout02;
     @ViewInject(R.id.layout_03)
-    protected LinearLayout layout03;
+    public LinearLayout layout03;
     @ViewInject(R.id.bt_01)
-    protected Button bt01;
+    public Button bt01;
     @ViewInject(R.id.bt_02)
-    protected Button bt02;
+    public Button bt02;
     @ViewInject(R.id.bt_seek)
-    protected Button btSeek;
+    public Button btSeek;
     @ViewInject(R.id.tv_01)
-    protected TextView tv01;
+    public EditText tv01;
     @ViewInject(R.id.tv_02)
-    protected TextView tv02;
+    public EditText tv02;
+    @ViewInject(R.id.tv_inquiry)
+    public TextView tvInquiry;
 
 
     private List<TabTextView> tabTextViews;
@@ -70,6 +73,17 @@ public class MainActivity extends BaseActivity {
         setLeftButton(-1);
         toolBar.getToolbar().setVisibility(View.GONE);
         setFragment();
+    }
+
+    public void setInquiryGone() {
+        tvInquiry.setVisibility(View.GONE);
+    }
+
+    public void setLayoutGone() {
+        tvInquiry .setVisibility(View.GONE);
+        layout01.setVisibility(View.GONE);
+        layout02.setVisibility(View.GONE);
+        layout03.setVisibility(View.GONE);
     }
 
     @Override

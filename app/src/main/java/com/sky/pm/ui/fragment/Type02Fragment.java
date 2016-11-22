@@ -1,6 +1,5 @@
 package com.sky.pm.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,7 +11,6 @@ import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.ui.BaseFragment;
-import com.sky.pm.ui.activity.MainActivity;
 import com.sky.pm.ui.adapter.Type02Adapter;
 import com.sky.pm.utils.HttpDataUtils;
 import com.sky.pm.utils.itemdecoration.DividerGridItemDecoration;
@@ -32,9 +30,8 @@ public class Type02Fragment extends BaseFragment {
     @ViewInject(R.id.recycle)
     private RecyclerView recyclerView;
     private Type02Adapter adapter;
-    MainActivity activity;
     private List<Latest> list;
-    private int local= 0;
+    private int local = 0;
 
     Handler handler = new Handler() {
         @Override
@@ -48,6 +45,7 @@ public class Type02Fragment extends BaseFragment {
         }
     };
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -55,7 +53,7 @@ public class Type02Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list==null)return;
+                if (list == null) return;
                 Map02Fragment fragment = new Map02Fragment();
                 fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(local).getLatitude()),
                         Double.parseDouble(list.get(local).getLongitude())));
@@ -65,6 +63,36 @@ public class Type02Fragment extends BaseFragment {
         });
         setRealView();
         getData();
+        setSeek();
+    }
+    private boolean inquiry = false;
+
+    private void setSeek() {
+        activity.tvInquiry.setVisibility(View.VISIBLE);
+        activity.tvInquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setInquiry();
+            }
+        });
+        activity.btSeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private void setInquiry() {
+        if (inquiry) {
+            activity.layout02.setVisibility(View.GONE);
+            activity.layout03.setVisibility(View.GONE);
+            inquiry = false;
+        } else {
+            activity.layout02.setVisibility(View.VISIBLE);
+            activity.layout03.setVisibility(View.VISIBLE);
+            inquiry = true;
+        }
     }
 
     private void getData() {
@@ -77,13 +105,6 @@ public class Type02Fragment extends BaseFragment {
             }
         });
     }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.activity = (MainActivity) activity;
-    }
-
     private void setRealView() {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerGridItemDecoration(getActivity()));
@@ -94,7 +115,7 @@ public class Type02Fragment extends BaseFragment {
         adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                local= position;
+                local = position;
             }
 
             @Override

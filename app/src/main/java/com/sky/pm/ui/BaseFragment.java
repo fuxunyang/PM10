@@ -1,5 +1,6 @@
 package com.sky.pm.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sky.pm.common.Constants;
+import com.sky.pm.ui.activity.MainActivity;
 import com.sky.pm.ui.dialog.DialogManager;
 import com.sky.utils.SPUtils;
 import com.sky.utils.ToastUtils;
@@ -19,8 +21,15 @@ import org.xutils.x;
  * @date 15/12/20 上午11:35
  */
 public class BaseFragment extends Fragment {
-    private boolean injected = false;
+    public MainActivity activity;
 
+    private boolean injected = false;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = (MainActivity) activity;
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         injected = true;
@@ -30,6 +39,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        activity.setLayoutGone();
         if (!injected) {
             x.view().inject(this, this.getView());
         }

@@ -34,5 +34,33 @@ public class Map02Fragment extends BaseMapFragment {
         });
     }
 
+    private boolean inquiry = false;
 
+    public void setSeek() {
+        activity.tvInquiry.setVisibility(View.VISIBLE);
+        activity.tvInquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setInquiry();
+            }
+        });
+        activity.btSeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public void setInquiry() {
+        if (inquiry) {
+            activity.layout02.setVisibility(View.GONE);
+            activity.layout03.setVisibility(View.GONE);
+            inquiry = false;
+        } else {
+            activity.layout02.setVisibility(View.VISIBLE);
+            activity.layout03.setVisibility(View.VISIBLE);
+            inquiry = true;
+        }
+    }
 }
