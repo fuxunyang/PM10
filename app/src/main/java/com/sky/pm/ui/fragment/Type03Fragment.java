@@ -69,6 +69,7 @@ public class Type03Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (list==null)return;
                 Map03Fragment fragment = new Map03Fragment();
                 fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(local).getLatitude()),
                         Double.parseDouble(list.get(local).getLongitude())));

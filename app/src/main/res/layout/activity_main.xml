@@ -17,15 +17,122 @@
         android:background="@color/background"
         android:visibility="gone" />
 
-    <FrameLayout
-        android:id="@+id/frame_manager"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/background" />
+        android:layout_weight="1">
 
-    <!--<include layout="@layout/main_bottom" />-->
+        <FrameLayout
+            android:id="@+id/frame_manager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/background" />
+
+        <LinearLayout
+            android:id="@+id/layout_seek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_inquiry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/grey_light"
+                android:drawableTop="@mipmap/ic_down"
+                android:text="按条件查询" />
+
+            <LinearLayout
+                android:id="@+id/layout_01"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@mipmap/bt_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_32"
+                android:paddingRight="@dimen/padding_32"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/bt_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_bg"
+                    android:text="所属厂区" />
+
+                <Button
+                    android:id="@+id/bt_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/btn_bg"
+                    android:text="设备名称" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_02"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@mipmap/bt_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_32"
+                android:paddingRight="@dimen/padding_32"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/ic_tv_bg"
+                    android:gravity="center"
+                    android:text="所属厂区" />
+
+                <TextView
+                    android:id="@+id/tv_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@mipmap/ic_tv_bg"
+                    android:gravity="center"
+                    android:text="设备名称" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_03"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@mipmap/bt_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_32"
+                android:paddingRight="@dimen/padding_32"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/bt_seek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/btn_seek" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
     <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/black"

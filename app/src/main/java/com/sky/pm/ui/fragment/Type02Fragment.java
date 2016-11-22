@@ -55,6 +55,7 @@ public class Type02Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (list==null)return;
                 Map02Fragment fragment = new Map02Fragment();
                 fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(local).getLatitude()),
                         Double.parseDouble(list.get(local).getLongitude())));

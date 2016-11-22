@@ -28,7 +28,8 @@ public class Type01Adapter extends RecyclerAdapter<PieModel, RecyclerHolder> {
     @Override
     protected void onAchieveHolder(RecyclerHolder holder, int position) {
         ImageView img = holder.getView(R.id.img_describe);
-        img.setImageResource(datas.get(position).getCorlor());
+        img.setBackground(context.getResources().getDrawable(datas.get(position).getCorlor()));
+
         holder.setText(R.id.tv_text, datas.get(position).getText());
     }
 }

@@ -24,6 +24,7 @@ public class PieChartView extends View {
     private Paint inPiePaint;//内圆
     private Paint linePaint;//间隔线
     private int lineSweep=0;
+    private Paint valuePain;
 
     private int pieCenterX;//圆心X
     private int pieCenterY;//圆心Y
@@ -126,6 +127,9 @@ public class PieChartView extends View {
 
             canvas.drawArc(pieOval, start, sweep, true, piePaint);
             start += sweep;
+//            double value = mPieItems.get(i).getItemValue() / totalValue*100;//计算百分比
+
+
 //            canvas.drawArc(pieOval, start, lineSweep, true, linePaint);
 //            start += lineSweep;
 

@@ -2,12 +2,9 @@ package com.sky.pm.ui.fragment;
 
 import android.view.View;
 
-import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.utils.HttpDataUtils;
-
-import org.xutils.view.annotation.ContentView;
 
 import java.util.List;
 
@@ -15,7 +12,6 @@ import java.util.List;
 /**
  * Created by 李彬 on 2016/11/12.
  */
-@ContentView(R.layout.fragment_map)
 public class Map01Fragment extends BaseMapFragment {
     public void setRight() {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.sky.pm.R;
@@ -35,6 +38,26 @@ public class MainActivity extends BaseActivity {
     private TabTextView three;
     @ViewInject(R.id.id_four)
     private TabTextView four;
+
+    @ViewInject(R.id.layout_seek)
+    protected LinearLayout layoutSeek;
+    @ViewInject(R.id.layout_01)
+    protected LinearLayout layout01;
+    @ViewInject(R.id.layout_02)
+    protected LinearLayout layout02;
+    @ViewInject(R.id.layout_03)
+    protected LinearLayout layout03;
+    @ViewInject(R.id.bt_01)
+    protected Button bt01;
+    @ViewInject(R.id.bt_02)
+    protected Button bt02;
+    @ViewInject(R.id.bt_seek)
+    protected Button btSeek;
+    @ViewInject(R.id.tv_01)
+    protected TextView tv01;
+    @ViewInject(R.id.tv_02)
+    protected TextView tv02;
+
 
     private List<TabTextView> tabTextViews;
     private Menu mMenu;
@@ -84,13 +107,16 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.id_two:
                 changeFragment(getResources().getString(R.string.tab_two), two, new WeatherFragment());
+                setRight("");
+
                 break;
             case R.id.id_three:
                 changeFragment(getResources().getString(R.string.tab_three), three, new BusinessFragment());
+                setRight("");
                 break;
             case R.id.id_four:
                 changeFragment(getResources().getString(R.string.tab_my), four, new MyFragment());
-//                setMenu(true);
+                setRight("");
                 break;
         }
     }

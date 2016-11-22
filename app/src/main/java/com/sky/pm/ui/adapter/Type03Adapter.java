@@ -1,6 +1,5 @@
 package com.sky.pm.ui.adapter;
 
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,13 +48,18 @@ public class Type03Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
         TextView tvAQI = holder.getView(R.id.tv_aqi);
         tvAQI.setText(AQI + "");
         if (AQI >= 0 && AQI <= 50) {
-            DrawableCompat.setTint(tvAQI.getBackground(),context.getResources().getColor(R.color.pie1));
+            tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type01_bg));
+//            DrawableCompat.setTint(tvAQI.getBackground(),context.getResources().getColor(R.color.pie1));
         } else if (AQI >= 51 && AQI <= 100) {
-            DrawableCompat.setTint(tvAQI.getBackground(),context.getResources().getColor(R.color.pie2));
+            tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type02_bg));
         } else if (AQI >= 101 && AQI <= 150) {
-            DrawableCompat.setTint(tvAQI.getBackground(),context.getResources().getColor(R.color.pie1));
-        } else if (AQI >= 151) {
-            DrawableCompat.setTint(tvAQI.getBackground(),context.getResources().getColor(R.color.pie1));
+            tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type03_bg));
+        } else if (AQI >= 151 && AQI <= 200) {
+            tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type04_bg));
+        } else if (AQI >= 201 && AQI <= 300) {
+            tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type05_bg));
+        } else if (AQI >= 301 && AQI <= 400) {
+            tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type06_bg));
         }
 
     }

@@ -2,19 +2,15 @@ package com.sky.pm.ui.fragment;
 
 import android.view.View;
 
-import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.utils.HttpDataUtils;
-
-import org.xutils.view.annotation.ContentView;
 
 import java.util.List;
 
 /**
  * Created by 李彬 on 2016/11/12.
  */
-@ContentView(R.layout.fragment_map)
 public class Map02Fragment extends BaseMapFragment {
 
     @Override
@@ -22,7 +18,7 @@ public class Map02Fragment extends BaseMapFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.changeFragment("站点监测", new Type01Fragment());
+                activity.changeFragment("站点监测", new Type02Fragment());
                 activity.setRight("地图");
             }
         });

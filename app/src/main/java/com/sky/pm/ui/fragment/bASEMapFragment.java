@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -29,6 +30,7 @@ import com.sky.pm.ui.BaseFragment;
 import com.sky.pm.ui.activity.MainActivity;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
@@ -64,12 +66,11 @@ public abstract class BaseMapFragment extends BaseFragment {
     // 定位相关
     LocationClient mLocClient;
     protected MyLocationConfiguration.LocationMode mCurrentMode;
-
+    private double latitude, longitude;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            setLocation();
             switch (msg.what) {
                 case 1:
                     for (int i = 0; i < list.size(); i++) {
@@ -78,7 +79,8 @@ public abstract class BaseMapFragment extends BaseFragment {
                         double lng = Double.parseDouble(list.get(i).getLongitude());
                         LatLng ll = new LatLng(lat, lng);
                         if (value >= 0 && value <= 50) {
-                            mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdA).zIndex(5));
+                            MarkerOptions marker =  new MarkerOptions().position(ll).icon(bdA).zIndex(5);
+                            mBaiduMap.addOverlay(marker);
                             setText(i, lat, lng, R.color.pie1);
                         } else if (value >= 51 && value <= 100) {
                             mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdB).zIndex(5));
@@ -89,14 +91,14 @@ public abstract class BaseMapFragment extends BaseFragment {
                         } else if (value >= 151 && value <= 200) {
                             mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdD).zIndex(5));
                             setText(i, lat, lng, R.color.pie4);
-                        } else if (value >= 201 && value <= 400) {
+                        } else if (value >= 201 && value <= 300) {
                             mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdE).zIndex(5));
                             // 添加文字
-                            setText(i, lat, lng, R.color.pie4);
-                        } else if (value >= 401) {
+                            setText(i, lat, lng, R.color.pie5);
+                        } else if (value >= 301) {
                             mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdF).zIndex(5));
                             // 添加文字
-                            setText(i, lat, lng, R.color.pie4);
+                            setText(i, lat, lng, R.color.pie6);
                         }
                     }
                     break;
@@ -104,24 +106,30 @@ public abstract class BaseMapFragment extends BaseFragment {
             setHandler(msg);
         }
 
-        private void setText(int i, double lat, double lng, int color) {
-            // 添加文字
-            LatLng llText = new LatLng(lat - 0.001, lng);
-            OverlayOptions name = new TextOptions().bgColor(0xAAFFFF00)
-                    .fontSize(36).fontColor(getResources().getColor(color)).text(list.get(i).getStationName())
-                    .position(llText);
-            mBaiduMap.addOverlay(name);
-
-            LatLng llValue = new LatLng(lat + 0.005, lng + 0.01);
-            OverlayOptions dateValue = new TextOptions().bgColor(0xAAFFFF00)
-                    .fontSize(36).fontColor(getResources().getColor(color)).text(list.get(i).getDataValue())
-                    .position(llValue);
-            mBaiduMap.addOverlay(dateValue);
-        }
     };
+    public void setText(int i, double lat, double lng, int color) {
+        // 添加文字
+        LatLng llText = new LatLng(lat - 0.001, lng);
+        OverlayOptions name = new TextOptions()
+                .fontSize(36).fontColor(getResources().getColor(color)).text(list.get(i).getStationName())
+                .position(llText);
+        mBaiduMap.addOverlay(name);
 
+        LatLng llValue = new LatLng(lat + 0.005, lng + 0.01);
+        OverlayOptions dateValue = new TextOptions()
+                .fontSize(36).fontColor(getResources().getColor(color)).text(list.get(i).getDataValue())
+                .position(llValue);
+        mBaiduMap.addOverlay(dateValue);
+    }
     public void setHandler(Message msg) {
 
+    }
+
+    public Bundle setBundle(double lat, double lng) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble("lat", lat);
+        bundle.putDouble("lng", lng);
+        return bundle;
     }
 
     @Override
@@ -136,18 +144,48 @@ public abstract class BaseMapFragment extends BaseFragment {
         mBaiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
         mBaiduMap.setMapStatus(msu);
-//        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
-
         getData();
         setRight();
+        Bundle arguments = getArguments();
+        latitude = arguments.getDouble("lat", 0);
+        longitude = arguments.getDouble("lng", 0);
+        setLocation(latitude, longitude);
     }
 
     public abstract void setRight();
 
     public abstract void getData();
 
-    public void setLocation() {
-// 开启定位图层
+    private boolean checked = true;
+    @ViewInject(R.id.imbt_change)
+    private ImageButton change;
+
+    @ViewInject(R.id.imbt_back)
+    private ImageButton back;
+
+    @Event({R.id.imbt_change, R.id.imbt_back})
+    private void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imbt_change:
+                if (checked) {
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                    checked = false;
+                    change.setBackgroundResource(R.mipmap.btn_local_02);
+
+                } else {
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                    checked = true;
+                    change.setBackgroundResource(R.mipmap.btn_local_01);
+                }
+                break;
+            case R.id.imbt_back:
+                setLocation(latitude, longitude);
+                break;
+        }
+    }
+
+    public void setLocation(final double lat, final double lng) {
+        // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
         BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
@@ -167,18 +205,10 @@ public abstract class BaseMapFragment extends BaseFragment {
                 MyLocationData locData = new MyLocationData.Builder()
                         .accuracy(location.getRadius())
                         // 此处设置开发者获取到的方向信息，顺时针0-360
-                        .direction(100).latitude(Double.parseDouble(list.get(0).getLatitude()))
-                        .longitude(Double.parseDouble(list.get(0).getLongitude())).build();
+                        .direction(100).latitude(lat)
+                        .longitude(lng).build();
                 mBaiduMap.setMyLocationData(locData);
                 mLocClient.stop();
-//                if (isFirstLoc) {
-//                    isFirstLoc = false;
-//                    LatLng ll = new LatLng(location.getLatitude(),
-//                            location.getLongitude());
-//                    MapStatus.Builder builder = new MapStatus.Builder();
-//                    builder.target(ll).zoom(18.0f);
-//                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-//                }
             }
         });
         LocationClientOption option = new LocationClientOption();

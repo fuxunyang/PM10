@@ -8,16 +8,14 @@ import android.view.View;
 
 import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
-import com.sky.pm.model.Latest;
+import com.sky.pm.model.NewsModel;
 import com.sky.pm.ui.BaseFragment;
 import com.sky.pm.ui.adapter.NewsAdapter;
 import com.sky.pm.utils.HttpDataUtils;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,17 +26,14 @@ public class BusinessFragment extends BaseFragment {
     @ViewInject(R.id.recycle)
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
-    private List<Latest> list;
-    //瀑布流布局
-//    private StaggeredGridLayoutManager layoutManager;
-    private List<String> texts;
+    private List<NewsModel> list;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    initView();
+                    adapter.setDatas(list);
                     break;
             }
         }
@@ -47,15 +42,15 @@ public class BusinessFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView();
         getData();
     }
 
     private void getData() {
-        HttpDataUtils.NewsGetAllListByJson(new IDataResultImpl<List<Latest>>() {
+        HttpDataUtils.NewsGetAllListByJson(new IDataResultImpl<List<NewsModel>>() {
             @Override
-            public void onSuccessData(List<Latest> data) {
+            public void onSuccessData(List<NewsModel> data) {
                 list = data;
-                LogUtil.d(data.size() + "");
                 handler.sendEmptyMessage(1);
             }
         });
@@ -64,15 +59,6 @@ public class BusinessFragment extends BaseFragment {
     //
 
     private void initView() {
-        texts = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            texts.add("道可道，非常道；名可名，非常名。" +
-                    "    无名，天地之始；有名，万物之母。" +
-                    "    故常无，欲以观其妙；常有，欲以观其徼。" +
-                    "    此两者同出而异名。同谓之玄，玄之又玄，众妙之门。");
-
-        }
         recyclerView.setHasFixedSize(true);
         //瀑布流布局
         adapter = new NewsAdapter(R.layout.adapter_text);
@@ -88,7 +74,6 @@ public class BusinessFragment extends BaseFragment {
 
             }
         });
-        adapter.setDatas(texts);
 
     }
 }

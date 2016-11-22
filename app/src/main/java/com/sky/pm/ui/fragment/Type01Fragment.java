@@ -61,8 +61,10 @@ public class Type01Fragment extends BaseFragment {
     private TypeRealAdapter realAdapter;
     //瀑布流布局
     private GridLayoutManager layoutManager;
-    private Integer[] colorIds = {R.color.pie1, R.color.pie3, R.color.pie2, R.color.pie4};
-    private String[] texts = {"优[00-50]", "轻度污染[101-150]", "良[51-100]", "中度污染[151-200]"};
+//    private Integer[] drawableIds = {R.color.pie1, R.color.pie3, R.color.pie2, R.color.pie4, R.color.pie5, R.color.pie6};
+    private Integer[] drawableIds = {R.drawable.pie_bg, R.drawable.pie3_bg, R.drawable.pie2_bg,
+        R.drawable.pie4_bg, R.drawable.pie5_bg, R.drawable.pie6_bg};
+    private String[] texts = {"优[00-50]", "轻度污染[101-150]", "良[51-100]", "中度污染[151-200]", "重度污染[201-300]", "严重污染[301-500]"};
     private List<PieModel> pies;
     private MainActivity activity;
     private List<Latest> list;
@@ -70,6 +72,8 @@ public class Type01Fragment extends BaseFragment {
     private int liang = 0;
     private int qing = 0;
     private int zhong = 0;
+    private int zhongdu = 0;
+    private int yanzhong = 0;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -85,8 +89,12 @@ public class Type01Fragment extends BaseFragment {
                         } else if (value >= 101 && value <= 150) {
                             qing++;
 //                        } else if (value >= 151 && value <= 200) {
-                        } else if (value >= 151) {
+                        } else if (value >= 151 && value <= 200) {
                             zhong++;
+                        } else if (value >= 201 && value <= 300) {
+                            zhongdu++;
+                        } else if (value >= 201 && value <= 300) {
+                            yanzhong++;
                         }
                     }
                     setPie();
@@ -96,6 +104,10 @@ public class Type01Fragment extends BaseFragment {
                             "监测数值为良的" + liang + "个，" +
                             "监测数值为轻度污染的" + qing + "个，" +
                             "监测数值为中度污染的" + zhong + "个" +
+                            "监测数值为中度污染的" + zhong + "个" +
+                            "监测数值为中度污染的" + zhong + "个" +
+                            "监测数值为重度污染的" + zhongdu + "个" +
+                            "监测数值为严重污染的" + yanzhong + "个" +
                             "");
 
                     break;
@@ -116,10 +128,11 @@ public class Type01Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (list==null)return;
                 Map01Fragment fragment = new Map01Fragment();
                 fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
                         Double.parseDouble(list.get(0).getLongitude())));
-                activity.changeFragment("厂区监测",fragment);
+                activity.changeFragment("厂区监测", fragment);
                 activity.setRight("详情");
             }
         });
@@ -166,14 +179,16 @@ public class Type01Fragment extends BaseFragment {
         items.add(new PieChartView.PieItem("", liang, getActivity().getResources().getColor(R.color.pie2)));
         items.add(new PieChartView.PieItem("", qing, getActivity().getResources().getColor(R.color.pie3)));
         items.add(new PieChartView.PieItem("", zhong, getActivity().getResources().getColor(R.color.pie4)));
+        items.add(new PieChartView.PieItem("", zhongdu, getActivity().getResources().getColor(R.color.pie5)));
+        items.add(new PieChartView.PieItem("", yanzhong, getActivity().getResources().getColor(R.color.pie6)));
         pieChartView.setPieItems(items);
     }
 
 
     private void initView() {
         pies = new ArrayList<>();
-        for (int i = 0; i < colorIds.length; i++) {
-            pies.add(new PieModel(texts[i], colorIds[i]));
+        for (int i = 0; i < drawableIds.length; i++) {
+            pies.add(new PieModel(texts[i], drawableIds[i]));
         }
         recyclerView.setHasFixedSize(true);
         //瀑布流布局

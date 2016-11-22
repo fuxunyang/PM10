@@ -5,11 +5,12 @@ import android.view.View;
 import com.sky.adapter.RecyclerAdapter;
 import com.sky.adapter.RecyclerHolder;
 import com.sky.pm.R;
+import com.sky.pm.model.NewsModel;
 
 /**
  * Created by 李彬 on 2016/11/12.
  */
-public class NewsAdapter extends RecyclerAdapter<String, RecyclerHolder> {
+public class NewsAdapter extends RecyclerAdapter<NewsModel, RecyclerHolder> {
     public NewsAdapter(int layoutId) {
         super(layoutId);
     }
@@ -25,7 +26,7 @@ public class NewsAdapter extends RecyclerAdapter<String, RecyclerHolder> {
 
     @Override
     protected void onAchieveHolder(RecyclerHolder holder, int position) {
-        holder.setText(R.id.tv_text,datas.get(position));
+        holder.setText(R.id.tv_text,datas.get(position).getTitle());
 
     }
 }

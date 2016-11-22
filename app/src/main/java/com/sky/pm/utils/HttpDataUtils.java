@@ -6,6 +6,7 @@ import com.sky.pm.api.RequestCallBack;
 import com.sky.pm.common.Constants;
 import com.sky.pm.model.ApiResponse;
 import com.sky.pm.model.Latest;
+import com.sky.pm.model.NewsModel;
 import com.sky.pm.model.User;
 import com.sky.pm.model.WeatherEntity;
 
@@ -224,12 +225,12 @@ public class HttpDataUtils extends HttpUtilsBase {
         });
     }
 
-    public static void NewsGetAllListByJson(final IDataResultImpl<List<Latest>> callback) {
+    public static void NewsGetAllListByJson(final IDataResultImpl<List<NewsModel>> callback) {
         RequestParams params = new RequestParams(Constants.BASE_URL + "NewsService.asmx/NewsGetAllListByJson");
         params.setCharset("gbk");
-        x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+        x.http().post(params, new RequestCallBack<ApiResponse<List<NewsModel>>>(callback) {
             @Override
-            public void onSuccess(ApiResponse<List<Latest>> result) {
+            public void onSuccess(ApiResponse<List<NewsModel>> result) {
                 callback.onSuccessData(result.getRows());
             }
         });

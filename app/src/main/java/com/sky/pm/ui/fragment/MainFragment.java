@@ -74,11 +74,13 @@ public class MainFragment extends BaseFragment {
                     activity.setRight("地图");
                 } else if (position == 3) {//模范网格
                     activity.changeFragment("模范网络",new Type04Fragment());
+                    activity.setRight("");
                 } else if (position == 4) {//设备管理
                     activity.changeFragment("设备管理",new Type05Fragment());
                     activity.setRight("地图");
                 } else if (position == 5) {//历史数据
                     activity.changeFragment("历史数据",new Type06Fragment());
+                    activity.setRight("");
                 }
             }
 

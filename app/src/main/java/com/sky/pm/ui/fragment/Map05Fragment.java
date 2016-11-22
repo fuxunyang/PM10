@@ -6,6 +6,8 @@ import android.view.View;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
@@ -13,14 +15,12 @@ import com.sky.pm.model.Latest;
 import com.sky.pm.utils.HttpDataUtils;
 
 import org.xutils.common.util.LogUtil;
-import org.xutils.view.annotation.ContentView;
 
 import java.util.List;
 
 /**
  * Created by 李彬 on 2016/11/12.
  */
-@ContentView(R.layout.fragment_map05)
 public class Map05Fragment extends BaseMapFragment {
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bdG = BitmapDescriptorFactory
@@ -32,7 +32,7 @@ public class Map05Fragment extends BaseMapFragment {
             @Override
             public void onClick(View v) {
                 activity.changeFragment("设备管理", new Type05Fragment());
-                activity.setRight("地图");
+                activity.setRight("详情");
             }
         });
     }
@@ -60,9 +60,25 @@ public class Map05Fragment extends BaseMapFragment {
 
                     mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdG)
                             .zIndex(9).draggable(true));
-                }
+                    setText(i, lat, lng);
 
+                }
                 break;
         }
+    }
+
+    public void setText(int i, double lat, double lng) {
+        // 添加文字
+        LatLng llText = new LatLng(lat - 0.001, lng);
+        OverlayOptions name = new TextOptions()
+                .fontSize(36).fontColor(0xFF000000).text(list.get(i).getStationName())
+                .position(llText);
+        mBaiduMap.addOverlay(name);
+
+        LatLng llValue = new LatLng(lat + 0.005, lng + 0.01);
+        OverlayOptions dateValue = new TextOptions()
+                .fontSize(36).fontColor(0xff000000).text(list.get(i).getStationmn())
+                .position(llValue);
+        mBaiduMap.addOverlay(dateValue);
     }
 }

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tv_text"
         android:layout_alignTop="@+id/tv_text"
-        android:src="#82c31c" />
+        />
 
     <TextView
         android:id="@+id/tv_text"
