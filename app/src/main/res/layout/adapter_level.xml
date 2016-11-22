@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sky.pm.ui.widget.MyRecycleView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recycle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/button_bg"
+    android:scrollbars="vertical" />

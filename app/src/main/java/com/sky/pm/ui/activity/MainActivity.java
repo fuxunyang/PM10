@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity {
         setLeftButton(-1);
         toolBar.getToolbar().setVisibility(View.GONE);
         setFragment();
+
     }
 
     public void setInquiryGone() {

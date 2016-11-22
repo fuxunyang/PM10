@@ -37,8 +37,7 @@ public class Type05Fragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    setRealView();
-
+                    adapter.setDatas(list);
                     break;
             }
         }
@@ -59,6 +58,7 @@ public class Type05Fragment extends BaseFragment {
                 activity.setRight("地图");
             }
         });
+        setRealView();
         setSeek();
         getData();
     }
@@ -85,7 +85,18 @@ public class Type05Fragment extends BaseFragment {
         activity.btSeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String station = activity.tv01.getText().toString().trim();
+                String name = activity.tv02.getText().toString().trim();
+                HttpDataUtils.NMS_T_CFG_SITE_INFOGetIListByJson(
+                        station,name,
+//                        list.get(1).getStationmn(), list.get(1).getStationName(),
+                        new IDataResultImpl<List<Latest>>() {
+                            @Override
+                            public void onSuccessData(List<Latest> data) {
+                                list = data;
+                                handler.sendEmptyMessage(1);
+                            }
+                        });
             }
         });
     }
@@ -106,7 +117,6 @@ public class Type05Fragment extends BaseFragment {
 
         adapter = new Type05Adapter(R.layout.adapter_type05);
         recyclerView.setAdapter(adapter);
-        adapter.setDatas(list);
         adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

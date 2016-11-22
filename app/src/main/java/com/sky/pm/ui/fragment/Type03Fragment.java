@@ -88,7 +88,6 @@ public class Type03Fragment extends BaseFragment {
             public void onSuccessData(List<Latest> data) {
                 if (data != null)
                     day = data;
-
                 handler.sendEmptyMessage(222);
             }
         });

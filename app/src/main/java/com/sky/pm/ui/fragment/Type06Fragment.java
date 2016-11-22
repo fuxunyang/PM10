@@ -16,15 +16,16 @@ import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.ui.BaseFragment;
 import com.sky.pm.ui.adapter.TypeRealAdapter;
+import com.sky.pm.utils.DateTimePickDialogUtil;
 import com.sky.pm.utils.HttpDataUtils;
 import com.sky.pm.utils.itemdecoration.DividerGridItemDecoration;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Created by 李彬 on 2016/11/12.
@@ -94,6 +95,27 @@ public class Type06Fragment extends BaseFragment {
         activity.bt02.setVisibility(View.VISIBLE);
         activity.bt01.setText("开始时间");
         activity.bt02.setText("结束时间");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        final String str = formatter.format(curDate);
+
+        activity.bt01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                        getActivity(), str);
+                dateTimePicKDialog.dateTimePicKDialog(activity.bt01);
+            }
+        });
+        activity.bt02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateTimePickDialogUtil dateTimePicKDialog = new DateTimePickDialogUtil(
+                        getActivity(), str);
+                dateTimePicKDialog.dateTimePicKDialog(activity.bt02);
+            }
+        });
+
         activity.tvInquiry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +125,33 @@ public class Type06Fragment extends BaseFragment {
         activity.btSeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String station = activity.tv01.getText().toString().trim();
+                String name = activity.tv02.getText().toString().trim();
+                String begin = activity.bt01.getText().toString().trim()+":00";
+                String end = activity.bt02.getText().toString().trim()+":00";
+                //yyyy-MM-dd HH:mm:ss  2016-11-22 23:11:24
+                HttpDataUtils.DMS_T_DATA_SOURCEGetListByPageByJson(
+                        station, name,begin,end,
+//                        "2016-11-21 23:11:24", "2016-11-22 23:11:24",
+                        page + "", new IDataResultImpl<List<Latest>>() {
+                            @Override
+                            public void onSuccessData(List<Latest> data) {
+                                if (data == null) {
+                                    showToast("暂无数据");
+                                    return;
+                                }
+                                if (isRefresh) {
+                                    isRefresh = false;
+                                    showToast("已刷新");
+                                    Toast.makeText(getActivity(), "已刷新", Toast.LENGTH_SHORT).show();
+                                }
+                                if (data.size() == 0) showToast("暂无数据");
+                                if (page == 1) {
+                                    adapter.setDatas(data);
+                                    recyclerView.smoothScrollToPosition(0);
+                                } else adapter.addDatas(data);
+                            }
+                        });
 
             }
         });

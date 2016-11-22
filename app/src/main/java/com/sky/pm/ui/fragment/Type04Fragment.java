@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,10 +13,14 @@ import com.sky.adapter.RecyclerAdapter;
 import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
+import com.sky.pm.model.Level;
 import com.sky.pm.ui.BaseFragment;
+import com.sky.pm.ui.adapter.AreaPop;
 import com.sky.pm.ui.adapter.Type04Adapter;
+import com.sky.pm.ui.dialog.BasePop;
 import com.sky.pm.ui.widget.LineChartView;
 import com.sky.pm.utils.HttpDataUtils;
+import com.sky.pm.utils.ScreenUtils;
 import com.sky.pm.utils.itemdecoration.DividerGridItemDecoration;
 
 import org.xutils.view.annotation.ContentView;
@@ -44,6 +49,7 @@ public class Type04Fragment extends BaseFragment {
     private List<Latest> one;
     private List<Latest> day;
     private int hourOrMin = 2;
+    private BasePop areaPop;
 
 
     Handler handler = new Handler() {
@@ -55,7 +61,6 @@ public class Type04Fragment extends BaseFragment {
                     adapter.setDatas(list);
                     hourOrMin = 2;
                     setBtBg(btDay, btOne);
-
                     id = adapter.getDatas().get(0).getStationId();
                     getDay(id);
                     break;
@@ -83,6 +88,7 @@ public class Type04Fragment extends BaseFragment {
     }
 
     private boolean inquiry = false;
+    private String level = "1";
 
     public void setSeek() {
         activity.tvInquiry.setVisibility(View.VISIBLE);
@@ -91,6 +97,14 @@ public class Type04Fragment extends BaseFragment {
         activity.bt01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HttpDataUtils.NMS_T_CFG_AQIGetAllListByJson(new IDataResultImpl<List<Level>>() {
+                    @Override
+                    public void onSuccessData(List<Level> data) {
+                        createAreaShowFloder(data);
+                        if (!areaPop.isShowing())
+                            areaPop.showAsDropDown(activity.tvInquiry);
+                    }
+                });
 
             }
         });
@@ -103,7 +117,22 @@ public class Type04Fragment extends BaseFragment {
         activity.btSeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String station = activity.tv01.getText().toString().trim();
+                String name = activity.tv02.getText().toString().trim();
 
+                HttpDataUtils.DMS_T_DATA_LATESTGetIListByJson(station, name, level,
+//                        list.get(1).getStationmn(), list.get(1).getStationName(),
+                        new IDataResultImpl<List<Latest>>() {
+                            @Override
+                            public void onSuccessData(List<Latest> data) {
+                                if (data == null || data.size() == 0) {
+                                    showToast("无数据");
+                                    return;
+                                }
+                                list = data;
+                                handler.sendEmptyMessage(1);
+                            }
+                        });
             }
         });
     }
@@ -193,4 +222,20 @@ public class Type04Fragment extends BaseFragment {
         }
     }
 
+    private void createAreaShowFloder(final List<Level> datas) {
+        int w = ScreenUtils.getScreenH(getActivity());
+        int h = ScreenUtils.getScreenH(getActivity());
+        if (areaPop == null)
+            areaPop = new AreaPop(LayoutInflater.from(getActivity()).inflate(R.layout.adapter_level, null));
+        areaPop.setDatas(datas);
+        areaPop.setOnItemClickListener(new BasePop.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Level data = datas.get(position);
+                activity.bt01.setText(data.getAQIName());
+                level = data.getId();
+                areaPop.dismiss();
+            }
+        });
+    }
 }

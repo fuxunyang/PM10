@@ -95,7 +95,18 @@ public class Map05Fragment extends BaseMapFragment {
         activity.btSeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String station = activity.tv01.getText().toString().trim();
+                String name = activity.tv02.getText().toString().trim();
+                HttpDataUtils.NMS_T_CFG_SITE_INFOGetIListByJson(
+                        station,name,
+//                        list.get(1).getStationmn(), list.get(1).getStationName(),
+                        new IDataResultImpl<List<Latest>>() {
+                            @Override
+                            public void onSuccessData(List<Latest> data) {
+                                setLocation(Double.parseDouble(data.get(0).getLatitude()),
+                                        Double.parseDouble(data.get(0).getLongitude()));
+                            }
+                        });
             }
         });
     }

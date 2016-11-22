@@ -6,6 +6,7 @@ import com.sky.pm.api.RequestCallBack;
 import com.sky.pm.common.Constants;
 import com.sky.pm.model.ApiResponse;
 import com.sky.pm.model.Latest;
+import com.sky.pm.model.Level;
 import com.sky.pm.model.NewsModel;
 import com.sky.pm.model.User;
 import com.sky.pm.model.WeatherEntity;
@@ -98,6 +99,42 @@ public class HttpDataUtils extends HttpUtilsBase {
     }
 
     /**
+     * 站点管理
+     *
+     * @param callback
+     */
+    public static void DMS_T_DATA_LATESTGetIListInfoByJson(final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_LATESTService.asmx/DMS_T_DATA_LATESTGetIListInfoByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"\",\"IsLike\":true}]");
+        params.setCharset("gbk");
+        x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
+    /**
+     * 站点查询单个
+     *
+     * @param station
+     * @param name
+     * @param callback
+     */
+    public static void DMS_T_DATA_LATESTGetIListInfoByJson(String station, String name, final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_LATESTService.asmx/DMS_T_DATA_LATESTGetIListInfoByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"" + name + "\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"" + station + "\",\"IsLike\":true}]");
+        params.setCharset("gbk");
+        x.http().get(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
+    /**
      * 模范网格
      *
      * @param callback
@@ -115,13 +152,44 @@ public class HttpDataUtils extends HttpUtilsBase {
     }
 
     /**
+     * seek
+     *
+     * @param callback
+     */
+    public static void DMS_T_DATA_LATESTGetIListByJson(String station, String name, String level,
+                                                       final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_LATESTService.asmx/DMS_T_DATA_LATESTGetIListByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"" + name + "\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"" + station + "\",\"IsLike\":true},{\"Compare\":\"=\",\"FieldName\":\"AQILevel\",\"FieldValue\":\"" + level + "\",\"IsLike\":false}]");
+        params.setCharset("gbk");
+        x.http().get(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
+    public static void NMS_T_CFG_AQIGetAllListByJson(final IDataResultImpl<List<Level>> callback) {
+        //http://218.57.204.52:8018/NMS_T_CFG_AQIService.asmx?op=NMS_T_CFG_AQIGetAllListByJson
+        RequestParams params = new RequestParams(Constants.BASE_URL + "NMS_T_CFG_AQIService.asmx/NMS_T_CFG_AQIGetAllListByJson");
+        params.setCharset("gbk");
+        x.http().post(params, new RequestCallBack<ApiResponse<List<Level>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Level>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
+
+    /**
      * 1小时
      *
      * @param callback
      */
     public static void DMS_T_DATA_MINUTEGetListByPageByJson(String id, final IDataResultImpl<List<Latest>> callback) {
         RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_MINUTEService.asmx/DMS_T_DATA_MINUTEGetListByPageByJson");
-        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"StationId\",\"FieldValue\":\""+id+"\",\"IsLike\":false}]");
+        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"StationId\",\"FieldValue\":\"" + id + "\",\"IsLike\":false}]");
         params.addBodyParameter("orderby", "Id desc");
         params.addBodyParameter("pageIndex", "1");
         params.addBodyParameter("pageSize", "24");
@@ -141,27 +209,10 @@ public class HttpDataUtils extends HttpUtilsBase {
      */
     public static void DMS_T_DATA_HOURGetListByPageByJson(String id, final IDataResultImpl<List<Latest>> callback) {
         RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_HOURService.asmx/DMS_T_DATA_HOURGetListByPageByJson");
-        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"StationId\",\"FieldValue\":\""+id+"\",\"IsLike\":false}]");
+        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"StationId\",\"FieldValue\":\"" + id + "\",\"IsLike\":false}]");
         params.addBodyParameter("orderby", "Id desc");
         params.addBodyParameter("pageIndex", "1");
         params.addBodyParameter("pageSize", "24");
-        params.setCharset("gbk");
-        x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
-            @Override
-            public void onSuccess(ApiResponse<List<Latest>> result) {
-                callback.onSuccessData(result.getRows());
-            }
-        });
-    }
-
-    /**
-     * 站点管理
-     *
-     * @param callback
-     */
-    public static void DMS_T_DATA_LATESTGetIListInfoByJson(final IDataResultImpl<List<Latest>> callback) {
-        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_LATESTService.asmx/DMS_T_DATA_LATESTGetIListInfoByJson");
-        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"\",\"IsLike\":true}]");
         params.setCharset("gbk");
         x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
             @Override
@@ -188,6 +239,18 @@ public class HttpDataUtils extends HttpUtilsBase {
         });
     }
 
+    public static void NMS_T_CFG_SITE_INFOGetIListByJson(String station, String name, final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "NMS_T_CFG_SITE_INFOService.asmx/NMS_T_CFG_SITE_INFOGetIListByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"" + name + "\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"" + station + "\",\"IsLike\":true}]");
+        params.setCharset("gbk");
+        x.http().get(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
     /**
      * 历史数据
      *
@@ -201,6 +264,25 @@ public class HttpDataUtils extends HttpUtilsBase {
         params.addBodyParameter("pageSize", "10");
         params.setCharset("gbk");
         x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
+            @Override
+            public void onSuccess(ApiResponse<List<Latest>> result) {
+                callback.onSuccessData(result.getRows());
+            }
+        });
+    }
+
+    /**
+     * 历史数据
+     *
+     * @param callback
+     */
+    public static void DMS_T_DATA_SOURCEGetListByPageByJson(String station, String name,String begin,String end,String page, final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_SOURCEService.asmx/DMS_T_DATA_SOURCEGetListByPageByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"" + name + "\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"" + station + "\",\"IsLike\":true},{\"Compare\":\">=\",\"FieldName\":\"DataTime\",\"FieldValue\":\"" + begin + "\",\"IsLike\":false},{\"Compare\":\"<=\",\"FieldName\":\"DataTime\",\"FieldValue\":\"" + end + "\",\"IsLike\":false}]"); params.addBodyParameter("orderby", "Id desc");
+        params.addBodyParameter("pageIndex", page);
+        params.addBodyParameter("pageSize", "10");
+        params.setCharset("gbk");
+        x.http().get(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
             @Override
             public void onSuccess(ApiResponse<List<Latest>> result) {
                 callback.onSuccessData(result.getRows());

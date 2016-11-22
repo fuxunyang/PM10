@@ -15,7 +15,6 @@ import com.sky.pm.ui.adapter.Type02Adapter;
 import com.sky.pm.utils.HttpDataUtils;
 import com.sky.pm.utils.itemdecoration.DividerGridItemDecoration;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -39,7 +38,7 @@ public class Type02Fragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    setRealView();
+                    adapter.setDatas(list);
                     break;
             }
         }
@@ -78,6 +77,17 @@ public class Type02Fragment extends BaseFragment {
         activity.btSeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String station = activity.tv01.getText().toString().trim();
+                String name = activity.tv02.getText().toString().trim();
+                HttpDataUtils.DMS_T_DATA_LATESTGetIListInfoByJson(station,name,
+//                        list.get(1).getStationmn(), list.get(1).getStationName(),
+                        new IDataResultImpl<List<Latest>>() {
+                    @Override
+                    public void onSuccessData(List<Latest> data) {
+                        list = data;
+                        handler.sendEmptyMessage(1);
+                    }
+                });
 
             }
         });
@@ -100,7 +110,6 @@ public class Type02Fragment extends BaseFragment {
             @Override
             public void onSuccessData(List<Latest> data) {
                 list = data;
-                LogUtil.d(data.size() + "");
                 handler.sendEmptyMessage(1);
             }
         });
@@ -111,7 +120,6 @@ public class Type02Fragment extends BaseFragment {
 
         adapter = new Type02Adapter(R.layout.adapter_type02);
         recyclerView.setAdapter(adapter);
-        adapter.setDatas(list);
         adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
