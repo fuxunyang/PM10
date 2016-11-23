@@ -132,6 +132,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/bt_zhuxiao"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_marginLeft="@dimen/margin_64"

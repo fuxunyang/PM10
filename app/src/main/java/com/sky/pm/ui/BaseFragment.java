@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.sky.pm.common.Constants;
 import com.sky.pm.ui.activity.MainActivity;
 import com.sky.pm.ui.dialog.DialogManager;
-import com.sky.utils.SPUtils;
+import com.sky.pm.utils.SPUtils;
 import com.sky.utils.ToastUtils;
 
 import org.xutils.x;
@@ -99,32 +99,4 @@ public class BaseFragment extends Fragment {
     public <T extends Object> void setObject(String text, T a) {
         SPUtils.put(getActivity(), text, a);
     }
-//    /**
-//     * 检查是否登录,未登录跳转到登录页
-//     *
-//     * @return
-//     */
-//    public boolean checkLogin() {
-//        if (!getUserOnlineState()) {
-//            isLogin(4);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public void isLogin(int id) {
-//        new AlertDialog.Builder(getActivity(), id)
-//                .setTitle(getResources().getString(R.string.dialog_login))
-//                .setPositiveButton(getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                })
-//                .setNegativeButton(getResources().getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-////                        ActivityLifecycle.getInstance().getCurrentActivity().finish();
-//                    }
-//                }).setCancelable(true).show();
-//    }
 }

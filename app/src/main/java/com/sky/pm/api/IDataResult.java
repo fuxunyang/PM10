@@ -1,6 +1,7 @@
 package com.sky.pm.api;
 
 
+import org.json.JSONException;
 import org.xutils.ex.HttpException;
 
 /**
@@ -25,7 +26,7 @@ public interface IDataResult<T> {
      *
      * @param data
      */
-    void onSuccessData(T data);
+    void onSuccessData(T data) throws JSONException;
 
     void onStart();
 

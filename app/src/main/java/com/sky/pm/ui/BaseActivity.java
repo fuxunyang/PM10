@@ -10,8 +10,8 @@ import com.sky.api.IBase;
 import com.sky.pm.R;
 import com.sky.pm.common.Constants;
 import com.sky.pm.ui.dialog.DialogManager;
-import com.sky.utils.NetworkJudgment;
-import com.sky.utils.SPUtils;
+import com.sky.pm.utils.NetworkJudgment;
+import com.sky.pm.utils.SPUtils;
 import com.sky.utils.ToastUtils;
 
 import org.xutils.x;

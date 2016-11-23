@@ -9,6 +9,7 @@
 
     <color name="alpha">#00000000</color><!--红色 -->
     <color name="alpha_66">#44000000</color><!--红色 -->
+    <color name="blue01">#00b7ee</color><!--蓝色 -->
     <!--主色-->
     <color name="yellow">#f2c61a</color><!--浅灰-->
     <color name="lightgray">#999999</color><!--浅灰-->

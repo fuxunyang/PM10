@@ -1,8 +1,11 @@
 package com.sky.pm.ui.activity;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +17,10 @@ import com.baidu.mapapi.SDKInitializer;
 import com.sky.pm.R;
 import com.sky.pm.ui.BaseActivity;
 import com.sky.pm.ui.fragment.BusinessFragment;
+import com.sky.pm.ui.fragment.LoginFragment;
 import com.sky.pm.ui.fragment.MainFragment;
 import com.sky.pm.ui.fragment.MyFragment;
+import com.sky.pm.ui.fragment.RegisterFragment;
 import com.sky.pm.ui.fragment.WeatherFragment;
 import com.sky.pm.ui.widget.TabTextView;
 
@@ -32,13 +37,13 @@ public class MainActivity extends BaseActivity {
     //    @ViewInject(R.id.frame_manager)
 //    private FrameLayout frameLayout;
     @ViewInject(R.id.id_main)
-    private TabTextView first;
+    public TabTextView first;
     @ViewInject(R.id.id_two)
     private TabTextView two;
     @ViewInject(R.id.id_three)
     private TabTextView three;
     @ViewInject(R.id.id_four)
-    private TabTextView four;
+    public TabTextView four;
 
     @ViewInject(R.id.layout_seek)
     public LinearLayout layoutSeek;
@@ -81,7 +86,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setLayoutGone() {
-        tvInquiry .setVisibility(View.GONE);
+        tvInquiry.setVisibility(View.GONE);
         layout01.setVisibility(View.GONE);
         layout02.setVisibility(View.GONE);
         layout03.setVisibility(View.GONE);
@@ -130,18 +135,50 @@ public class MainActivity extends BaseActivity {
                 setRight("");
                 break;
             case R.id.id_four:
-                changeFragment(getResources().getString(R.string.tab_my), four, new MyFragment());
                 setRight("");
+                if (getUserOnlineState())
+                    changeFragment(getResources().getString(R.string.tab_my), four, new MyFragment());
+                else createDialog();
                 break;
         }
     }
+
+    private void createDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_login, null);// 得到加载view
+        final Dialog dialog = new AlertDialog.Builder(this).create();
+        view.findViewById(R.id.img_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.bt_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment("用户登录", new LoginFragment());
+                dialog.dismiss();
+
+            }
+        });
+        view.findViewById(R.id.bt_regist).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFragment("用户注册", new RegisterFragment());
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setContentView(view);// 设置布局
+    }
+
 
     private void setMenu(boolean flag) {
         if (mMenu == null) return;
         mMenu.getItem(0).setVisible(flag);
     }
 
-    private void resetOtherTabs() {
+    public void resetOtherTabs() {
         for (int i = 0; i < tabTextViews.size(); i++) {
             tabTextViews.get(i).setIconAlpha(0f);
         }

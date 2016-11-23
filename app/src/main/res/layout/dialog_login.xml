@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_16">
+
+    <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@mipmap/ic_delete" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_dialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="您还没有登录哦" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            android:layout_weight="1"
+            android:background="@drawable/login_bg"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium" />
+
+        <Button
+            android:id="@+id/bt_regist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            android:layout_weight="1"
+            android:background="@drawable/regist_bg"
+            android:text="注册"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium" />
+
+    </LinearLayout>
+</LinearLayout>

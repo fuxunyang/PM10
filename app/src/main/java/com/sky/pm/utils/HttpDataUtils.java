@@ -65,16 +65,47 @@ public class HttpDataUtils extends HttpUtilsBase {
      * @param pass
      * @param callback
      */
-    public static void login(String name, String pass, final IDataResultImpl<User> callback) {
-        RequestParams params = new RequestParams(Constants.BASE_URL + "/ManagerLogin");
-        params.addBodyParameter("userName", name);
-        params.addBodyParameter("passWord", pass);
+    public static void APPUsersGetRecordCount(String name, String pass, final IDataResultImpl<String> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "APPUsersService.asmx/APPUsersGetRecordCount");
+        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"Name\",\"FieldValue\":\"" + name + "\",\"IsLike\":false},{\"Compare\":\"=\",\"FieldName\":\"Password\",\"FieldValue\":\"" + pass + "\",\"IsLike\":false}] ");
         params.setCharset("gbk");
-        x.http().post(params, new RequestCallBack<ApiResponse<List<User>>>(callback) {
+        x.http().get(params, new RequestCallBack<String>(callback) {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccessData(result);
+            }
+        });
+    }
+
+    /**
+     * 注册
+     *
+     * @param name
+     * @param pass
+     * @param callback
+     */
+    public static void APPUsersAdd(String name, String pass, String nick, final IDataResultImpl<String> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "APPUsersService.asmx/APPUsersAdd");
+        params.addBodyParameter("json", "{\"Id\":1,\"Name\":\"" + name + "\",\"NickName\":\"" + nick + "\",\"Password\":\"" + pass + "\",\"Phone\":\"" + name + "\"}");
+        params.setCharset("gbk");
+        x.http().get(params, new RequestCallBack<String>(callback) {
+            @Override
+            public void onSuccess(String result) {
+                callback.onSuccessData(result.toString());
+            }
+        });
+    }
+
+    public static void APPUsersGetIListByJson(String name, String pass, final IDataResultImpl<List<User>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "APPUsersService.asmx/APPUsersGetIListByJson");
+        params.addBodyParameter("json", "[{\"Compare\":\"=\",\"FieldName\":\"Name\",\"FieldValue\":\"" + name + "\",\"IsLike\":false},{\"Compare\":\"=\",\"FieldName\":\"Password\",\"FieldValue\":\"" + pass + "\",\"IsLike\":false}] ");
+        params.setCharset("gbk");
+        x.http().get(params, new RequestCallBack<ApiResponse<List<User>>>(callback) {
             @Override
             public void onSuccess(ApiResponse<List<User>> result) {
-                if (result != null) callback.onSuccessData(result.getRows().get(0));
-                else callback.onSuccessData(null);
+                LogUtil.i("khfkladjfa");
+                if (result != null)
+                    callback.onSuccessData(result.getRows());
             }
         });
     }
@@ -276,9 +307,10 @@ public class HttpDataUtils extends HttpUtilsBase {
      *
      * @param callback
      */
-    public static void DMS_T_DATA_SOURCEGetListByPageByJson(String station, String name,String begin,String end,String page, final IDataResultImpl<List<Latest>> callback) {
+    public static void DMS_T_DATA_SOURCEGetListByPageByJson(String station, String name, String begin, String end, String page, final IDataResultImpl<List<Latest>> callback) {
         RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_SOURCEService.asmx/DMS_T_DATA_SOURCEGetListByPageByJson");
-        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"" + name + "\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"" + station + "\",\"IsLike\":true},{\"Compare\":\">=\",\"FieldName\":\"DataTime\",\"FieldValue\":\"" + begin + "\",\"IsLike\":false},{\"Compare\":\"<=\",\"FieldName\":\"DataTime\",\"FieldValue\":\"" + end + "\",\"IsLike\":false}]"); params.addBodyParameter("orderby", "Id desc");
+        params.addBodyParameter("json", "[{\"Compare\":\"like\",\"FieldName\":\"StationName\",\"FieldValue\":\"" + name + "\",\"IsLike\":true},{\"Compare\":\"like\",\"FieldName\":\"Stationmn\",\"FieldValue\":\"" + station + "\",\"IsLike\":true},{\"Compare\":\">=\",\"FieldName\":\"DataTime\",\"FieldValue\":\"" + begin + "\",\"IsLike\":false},{\"Compare\":\"<=\",\"FieldName\":\"DataTime\",\"FieldValue\":\"" + end + "\",\"IsLike\":false}]");
+        params.addBodyParameter("orderby", "Id desc");
         params.addBodyParameter("pageIndex", page);
         params.addBodyParameter("pageSize", "10");
         params.setCharset("gbk");

@@ -21,6 +21,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    useLibrary 'org.apache.http.legacy'
     sourceSets {
         main {
             jniLibs.srcDir 'libs'
@@ -62,4 +63,9 @@ dependencies {
     compile 'org.xutils:xutils:3.1.24'
     compile 'com.sky:apiutils:1.1.1'
     compile 'com.google.code.gson:gson:2.7'
+
+    compile 'cn.bmob.android:bmob-sdk:3.4.6'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.4.0'
+
 }

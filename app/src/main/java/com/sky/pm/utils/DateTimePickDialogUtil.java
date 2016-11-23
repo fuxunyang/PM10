@@ -11,9 +11,12 @@ import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 
 import com.sky.pm.R;
+import com.sky.pm.model.Pm;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * 日期时间选择控件 使用方法： private EditText inputDate;//需要设置的日期时间文本编辑框 private String
@@ -121,6 +124,19 @@ public class DateTimePickDialogUtil implements OnDateChangedListener,
 
 		dateTime = sdf.format(calendar.getTime());
 		ad.setTitle(dateTime);
+		Pm pm= new Pm();
+		pm.setDate(dateTime);
+		pm.save(activity, new SaveListener() {
+			@Override
+			public void onSuccess() {
+
+			}
+
+			@Override
+			public void onFailure(int i, String s) {
+
+			}
+		});
 	}
 
 	/**
