@@ -178,6 +178,9 @@ public abstract class BaseMapFragment extends BaseFragment {
                 break;
             case R.id.imbt_back:
                 setLocation(latitude, longitude);
+                MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(10.0f);
+                mBaiduMap.setMapStatus(msu);
+//                showToast("当前缩放："+mBaiduMap.getMapStatus().zoom);
                 break;
         }
     }

@@ -101,8 +101,6 @@ public class Type01Fragment extends BaseFragment {
                             "监测数值为良的" + liang + "个，" +
                             "监测数值为轻度污染的" + qing + "个，" +
                             "监测数值为中度污染的" + zhong + "个" +
-                            "监测数值为中度污染的" + zhong + "个" +
-                            "监测数值为中度污染的" + zhong + "个" +
                             "监测数值为重度污染的" + zhongdu + "个" +
                             "监测数值为严重污染的" + yanzhong + "个" +
                             "");

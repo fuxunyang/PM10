@@ -86,6 +86,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setLayoutGone() {
+        tv01.setText("");
+        tv02.setText("");
         tvInquiry.setVisibility(View.GONE);
         layout01.setVisibility(View.GONE);
         layout02.setVisibility(View.GONE);
