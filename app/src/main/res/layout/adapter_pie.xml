@@ -5,13 +5,19 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_4">
 
-    <com.sky.pm.ui.widget.CircleImageView
-        android:id="@+id/img_describe"
-        android:layout_width="10dp"
+    <FrameLayout
+        android:id="@+id/layout_describe"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tv_text"
-        android:layout_alignTop="@+id/tv_text"
-        />
+        android:layout_alignTop="@+id/tv_text">
+
+        <com.sky.pm.ui.widget.CircleImageView
+            android:id="@+id/img_describe"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_text"
@@ -19,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_4"
         android:layout_marginTop="@dimen/margin_8"
-        android:layout_toRightOf="@id/img_describe"
+        android:layout_toRightOf="@id/layout_describe"
         android:text="优[0-50]"
         android:textColor="@color/white"
         android:textSize="@dimen/micro" />

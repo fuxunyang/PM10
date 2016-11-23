@@ -1,20 +1,18 @@
 package com.sky.pm.ui.fragment;
 
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.utils.HttpDataUtils;
-
-import org.xutils.common.util.LogUtil;
 
 import java.util.List;
 
@@ -22,10 +20,6 @@ import java.util.List;
  * Created by 李彬 on 2016/11/12.
  */
 public class Map05Fragment extends BaseMapFragment {
-    // 初始化全局 bitmap 信息，不用时及时 recycle
-    BitmapDescriptor bdG = BitmapDescriptorFactory
-            .fromResource(R.drawable.pie11);
-
     @Override
     public void setRight() {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
@@ -42,7 +36,6 @@ public class Map05Fragment extends BaseMapFragment {
             @Override
             public void onSuccessData(List<Latest> data) {
                 list = data;
-                LogUtil.d(data.size() + "");
                 handler.sendEmptyMessage(12);
             }
         });
@@ -57,29 +50,22 @@ public class Map05Fragment extends BaseMapFragment {
                     double lat = Double.parseDouble(list.get(i).getLatitude());
                     double lng = Double.parseDouble(list.get(i).getLongitude());
                     LatLng ll = new LatLng(lat, lng);
-
-                    mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdG)
-                            .zIndex(9).draggable(true));
-                    setText(i, lat, lng);
-
+                    setMark05(i, ll,R.drawable.pie11,R.color.black);
                 }
                 break;
         }
     }
-
-    public void setText(int i, double lat, double lng) {
-        // 添加文字
-        LatLng llText = new LatLng(lat - 0.001, lng);
-        OverlayOptions name = new TextOptions()
-                .fontSize(36).fontColor(0xFF000000).text(list.get(i).getStationName())
-                .position(llText);
-        mBaiduMap.addOverlay(name);
-
-        LatLng llValue = new LatLng(lat + 0.005, lng + 0.01);
-        OverlayOptions dateValue = new TextOptions()
-                .fontSize(36).fontColor(0xff000000).text(list.get(i).getStationmn())
-                .position(llValue);
-        mBaiduMap.addOverlay(dateValue);
+    private void setMark05(int i, LatLng ll,int draw,int color) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_local, null);
+        ImageView img = (ImageView) view.findViewById(R.id.img_local);
+        TextView name = (TextView) view.findViewById(R.id.tv_name);
+        TextView pm = (TextView) view.findViewById(R.id.tv_pm);
+        img.setImageResource(draw);
+        name.setTextColor(getResources().getColor(color));
+        name.setText(list.get(i).getStationName());
+        pm.setTextColor(getResources().getColor(color));
+        pm.setText(list.get(i).getStationmn());
+        mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromView(view)).zIndex(5));
     }
 
     private boolean inquiry = false;

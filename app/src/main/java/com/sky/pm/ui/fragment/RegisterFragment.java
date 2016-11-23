@@ -40,8 +40,12 @@ public class RegisterFragment extends BaseFragment {
                 break;
             case R.id.bt_regist:
 
-                String yan = etYan.getText().toString().trim();
+//                String yan = etYan.getText().toString().trim();
 //                if (TextUtil.notNull(yan, "验证码")) return;
+                if (phone.length()!=11){
+                    showToast("手机号是11位的");
+                    return;
+                }
 
                 final String pass = etPass.getText().toString().trim();
                 if (TextUtil.notNull(pass, "密码")) return;

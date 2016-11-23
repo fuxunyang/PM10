@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -20,8 +23,6 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.sky.pm.R;
 import com.sky.pm.model.Latest;
@@ -46,20 +47,6 @@ public abstract class BaseMapFragment extends BaseFragment {
     protected BaiduMap mBaiduMap;
     protected List<Latest> list;
 
-    // 初始化全局 bitmap 信息，不用时及时 recycle
-    BitmapDescriptor bdA = BitmapDescriptorFactory
-            .fromResource(R.drawable.pie5);
-    BitmapDescriptor bdB = BitmapDescriptorFactory
-            .fromResource(R.drawable.pie6);
-    BitmapDescriptor bdC = BitmapDescriptorFactory
-            .fromResource(R.drawable.pie7);
-    BitmapDescriptor bdD = BitmapDescriptorFactory
-            .fromResource(R.drawable.pie8);
-    BitmapDescriptor bdE = BitmapDescriptorFactory
-            .fromResource(R.drawable.pie9);
-    BitmapDescriptor bdF = BitmapDescriptorFactory
-            .fromResource(R.drawable.pie10);
-
     // 定位相关
     LocationClient mLocClient;
     protected MyLocationConfiguration.LocationMode mCurrentMode;
@@ -76,26 +63,17 @@ public abstract class BaseMapFragment extends BaseFragment {
                         double lng = Double.parseDouble(list.get(i).getLongitude());
                         LatLng ll = new LatLng(lat, lng);
                         if (value >= 0 && value <= 50) {
-                            MarkerOptions marker = new MarkerOptions().position(ll).icon(bdA).zIndex(5);
-                            mBaiduMap.addOverlay(marker);
-                            setText(i, lat, lng, R.color.pie1);
+                            setMark(i, ll,R.drawable.pie5,R.color.pie1);
                         } else if (value >= 51 && value <= 100) {
-                            mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdB).zIndex(5));
-                            setText(i, lat, lng, R.color.pie2);
+                            setMark(i, ll,R.drawable.pie6,R.color.pie2);
                         } else if (value >= 101 && value <= 150) {
-                            mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdC).zIndex(5));
-                            setText(i, lat, lng, R.color.pie3);
+                            setMark(i, ll,R.drawable.pie7,R.color.pie3);
                         } else if (value >= 151 && value <= 200) {
-                            mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdD).zIndex(5));
-                            setText(i, lat, lng, R.color.pie4);
+                            setMark(i, ll,R.drawable.pie8,R.color.pie4);
                         } else if (value >= 201 && value <= 300) {
-                            mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdE).zIndex(5));
-                            // 添加文字
-                            setText(i, lat, lng, R.color.pie5);
+                            setMark(i, ll,R.drawable.pie9,R.color.pie5);
                         } else if (value >= 301) {
-                            mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(bdF).zIndex(5));
-                            // 添加文字
-                            setText(i, lat, lng, R.color.pie6);
+                            setMark(i, ll,R.drawable.pie10,R.color.pie6);
                         }
                     }
                     break;
@@ -105,20 +83,19 @@ public abstract class BaseMapFragment extends BaseFragment {
 
     };
 
-    public void setText(int i, double lat, double lng, int color) {
-        // 添加文字
-        LatLng llText = new LatLng(lat - 0.001, lng);
-        OverlayOptions name = new TextOptions()
-                .fontSize(36).fontColor(getResources().getColor(color)).text(list.get(i).getStationName())
-                .position(llText);
-        mBaiduMap.addOverlay(name);
-
-        LatLng llValue = new LatLng(lat + 0.005, lng + 0.01);
-        OverlayOptions dateValue = new TextOptions()
-                .fontSize(36).fontColor(getResources().getColor(color)).text(list.get(i).getDataValue())
-                .position(llValue);
-        mBaiduMap.addOverlay(dateValue);
+    private void setMark(int i, LatLng ll,int draw,int color) {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_local, null);
+        ImageView img = (ImageView) view.findViewById(R.id.img_local);
+        TextView name = (TextView) view.findViewById(R.id.tv_name);
+        TextView pm = (TextView) view.findViewById(R.id.tv_pm);
+        img.setImageResource(draw);
+        name.setTextColor(getResources().getColor(color));
+        name.setText(list.get(i).getStationName());
+        pm.setTextColor(getResources().getColor(color));
+        pm.setText(list.get(i).getDataValue());
+        mBaiduMap.addOverlay(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromView(view)).zIndex(5));
     }
+
 
     public void setHandler(Message msg) {
 
@@ -244,11 +221,6 @@ public abstract class BaseMapFragment extends BaseFragment {
         mBaiduMap.setMyLocationEnabled(false);
         mMapView = null;
         super.onDestroy();
-        // 回收 bitmap 资源
-        bdA.recycle();
-        bdB.recycle();
-        bdC.recycle();
-        bdD.recycle();
     }
 
 }
