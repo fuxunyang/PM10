@@ -106,10 +106,12 @@ public class Type05Fragment extends BaseFragment {
             activity.layout02.setVisibility(View.GONE);
             activity.layout03.setVisibility(View.GONE);
             inquiry = false;
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek02));
         } else {
             activity.layout02.setVisibility(View.VISIBLE);
             activity.layout03.setVisibility(View.VISIBLE);
             inquiry = true;
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek02));
         }
     }
     private void setRealView() {

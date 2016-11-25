@@ -115,8 +115,8 @@ public class HttpDataUtils extends HttpUtilsBase {
      *
      * @param callback
      */
-    public static void DMS_T_DATA_LATESTGetAllListByJson(final IDataResultImpl<List<Latest>> callback) {
-        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_LATESTService.asmx/DMS_T_DATA_LATESTGetAllListByJson");
+    public static void DMS_T_DATA_LATESTGetAllListInfoByJson(final IDataResultImpl<List<Latest>> callback) {
+        RequestParams params = new RequestParams(Constants.BASE_URL + "DMS_T_DATA_LATESTService.asmx/DMS_T_DATA_LATESTGetAllListInfoByJson");
         params.setCharset("gbk");
         x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
             @Override
@@ -130,7 +130,7 @@ public class HttpDataUtils extends HttpUtilsBase {
     }
 
     /**
-     * 站点管理
+     * 站点监测
      *
      * @param callback
      */

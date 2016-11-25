@@ -24,7 +24,7 @@ public class Map01Fragment extends BaseMapFragment {
     }
 
     public void getData() {
-        HttpDataUtils.DMS_T_DATA_LATESTGetAllListByJson(new IDataResultImpl<List<Latest>>() {
+        HttpDataUtils.DMS_T_DATA_LATESTGetAllListInfoByJson(new IDataResultImpl<List<Latest>>() {
             @Override
             public void onSuccessData(List<Latest> data) {
                 list = data;

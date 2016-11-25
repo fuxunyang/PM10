@@ -78,19 +78,23 @@ public class Type01Fragment extends BaseFragment {
             switch (msg.what) {
                 case 1:
                     for (int i = 0; i < list.size(); i++) {
-                        double value = Double.parseDouble(list.get(i).getDataValue());
-                        if (value >= 0 && value <= 50) {
+                        double value=0;
+                        try{
+                             value = Double.parseDouble(list.get(i).getDataValue());
+                        }catch (NullPointerException e){
+                            continue;
+                        }
+                        if (value <= 50) {
                             you++;
                         } else if (value >= 51 && value <= 100) {
                             liang++;
                         } else if (value >= 101 && value <= 150) {
                             qing++;
-//                        } else if (value >= 151 && value <= 200) {
                         } else if (value >= 151 && value <= 200) {
                             zhong++;
                         } else if (value >= 201 && value <= 300) {
                             zhongdu++;
-                        } else if (value >= 201 && value <= 300) {
+                        } else if (value >= 301) {
                             yanzhong++;
                         }
                     }
@@ -130,7 +134,7 @@ public class Type01Fragment extends BaseFragment {
     }
 
     private void getData() {
-        HttpDataUtils.DMS_T_DATA_LATESTGetAllListByJson(new IDataResultImpl<List<Latest>>() {
+        HttpDataUtils.DMS_T_DATA_LATESTGetAllListInfoByJson(new IDataResultImpl<List<Latest>>() {
             @Override
             public void onSuccessData(List<Latest> data) {
                 list = data;

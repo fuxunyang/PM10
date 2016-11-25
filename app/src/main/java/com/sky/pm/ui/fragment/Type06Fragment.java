@@ -149,6 +149,7 @@ public class Type06Fragment extends BaseFragment {
                                 }
                                 if (data.size() == 0) showToast("暂无数据");
                                 if (page == 1) {
+                                    adapter.clearDatas();
                                     adapter.setDatas(data);
                                     recyclerView.smoothScrollToPosition(0);
                                 } else adapter.addDatas(data);
@@ -165,11 +166,13 @@ public class Type06Fragment extends BaseFragment {
             activity.layout02.setVisibility(View.GONE);
             activity.layout03.setVisibility(View.GONE);
             inquiry = false;
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek01));
         } else {
             activity.layout01.setVisibility(View.VISIBLE);
             activity.layout02.setVisibility(View.VISIBLE);
             activity.layout03.setVisibility(View.VISIBLE);
             inquiry = true;
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek01));
         }
     }
 

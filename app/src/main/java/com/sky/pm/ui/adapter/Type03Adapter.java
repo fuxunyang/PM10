@@ -29,7 +29,7 @@ public class Type03Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
     @Override
     protected void onAchieveHolder(RecyclerHolder holder, int position) {
         holder.setText(R.id.tv_name, datas.get(position).getStationName());
-        holder.setText(R.id.tv_pm10, datas.get(position).getDataValue());
+        holder.setText(R.id.tv_pm10, datas.get(position).getDataTime());
         int level = datas.get(position).getAQILevel();
         if (level == 1) {
             holder.setText(R.id.tv_level, "优");
@@ -58,7 +58,7 @@ public class Type03Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
             tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type04_bg));
         } else if (AQI >= 201 && AQI <= 300) {
             tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type05_bg));
-        } else if (AQI >= 301 && AQI <= 400) {
+        } else if (AQI >= 301) {
             tvAQI.setBackground(context.getResources().getDrawable(R.drawable.type06_bg));
         }
 

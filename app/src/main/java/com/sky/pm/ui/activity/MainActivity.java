@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity {
     public void setLayoutGone() {
         tv01.setText("");
         tv02.setText("");
+        tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek02));
         tvInquiry.setVisibility(View.GONE);
         layout01.setVisibility(View.GONE);
         layout02.setVisibility(View.GONE);

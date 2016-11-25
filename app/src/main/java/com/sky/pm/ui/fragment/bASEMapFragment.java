@@ -58,22 +58,28 @@ public abstract class BaseMapFragment extends BaseFragment {
             switch (msg.what) {
                 case 1:
                     for (int i = 0; i < list.size(); i++) {
-                        double value = Double.parseDouble(list.get(i).getDataValue());
+                        double value = 0;
                         double lat = Double.parseDouble(list.get(i).getLatitude());
                         double lng = Double.parseDouble(list.get(i).getLongitude());
                         LatLng ll = new LatLng(lat, lng);
-                        if (value >= 0 && value <= 50) {
-                            setMark(i, ll,R.drawable.pie5,R.color.pie1);
+                        try {
+                            value = Double.parseDouble(list.get(i).getDataValue());
+                        } catch (NullPointerException e) {
+                            setMark(i, ll, R.drawable.pie12, R.color.black);
+                            continue;
+                        }
+                        if (value <= 50) {
+                            setMark(i, ll, R.drawable.pie5, R.color.pie1);
                         } else if (value >= 51 && value <= 100) {
-                            setMark(i, ll,R.drawable.pie6,R.color.pie2);
+                            setMark(i, ll, R.drawable.pie6, R.color.pie2);
                         } else if (value >= 101 && value <= 150) {
-                            setMark(i, ll,R.drawable.pie7,R.color.pie3);
+                            setMark(i, ll, R.drawable.pie7, R.color.pie3);
                         } else if (value >= 151 && value <= 200) {
-                            setMark(i, ll,R.drawable.pie8,R.color.pie4);
+                            setMark(i, ll, R.drawable.pie8, R.color.pie4);
                         } else if (value >= 201 && value <= 300) {
-                            setMark(i, ll,R.drawable.pie9,R.color.pie5);
+                            setMark(i, ll, R.drawable.pie9, R.color.pie5);
                         } else if (value >= 301) {
-                            setMark(i, ll,R.drawable.pie10,R.color.pie6);
+                            setMark(i, ll, R.drawable.pie10, R.color.pie6);
                         }
                     }
                     break;
@@ -83,7 +89,7 @@ public abstract class BaseMapFragment extends BaseFragment {
 
     };
 
-    private void setMark(int i, LatLng ll,int draw,int color) {
+    private void setMark(int i, LatLng ll, int draw, int color) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_local, null);
         ImageView img = (ImageView) view.findViewById(R.id.img_local);
         TextView name = (TextView) view.findViewById(R.id.tv_name);

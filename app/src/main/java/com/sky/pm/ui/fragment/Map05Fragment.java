@@ -101,8 +101,10 @@ public class Map05Fragment extends BaseMapFragment {
         if (inquiry) {
             activity.layout02.setVisibility(View.GONE);
             activity.layout03.setVisibility(View.GONE);
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek02));
             inquiry = false;
         } else {
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek01));
             activity.layout02.setVisibility(View.VISIBLE);
             activity.layout03.setVisibility(View.VISIBLE);
             inquiry = true;

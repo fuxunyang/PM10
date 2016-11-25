@@ -2,6 +2,7 @@ package com.sky.pm.ui.fragment;
 
 import android.view.View;
 
+import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.utils.HttpDataUtils;
@@ -25,7 +26,7 @@ public class Map02Fragment extends BaseMapFragment {
     }
 
     public void getData() {
-        HttpDataUtils.DMS_T_DATA_LATESTGetAllListByJson(new IDataResultImpl<List<Latest>>() {
+        HttpDataUtils.DMS_T_DATA_LATESTGetAllListInfoByJson(new IDataResultImpl<List<Latest>>() {
             @Override
             public void onSuccessData(List<Latest> data) {
                 list = data;
@@ -67,10 +68,12 @@ public class Map02Fragment extends BaseMapFragment {
             activity.layout02.setVisibility(View.GONE);
             activity.layout03.setVisibility(View.GONE);
             inquiry = false;
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek02));
         } else {
             activity.layout02.setVisibility(View.VISIBLE);
             activity.layout03.setVisibility(View.VISIBLE);
             inquiry = true;
+            activity.tvInquiry.setBackground(getResources().getDrawable(R.mipmap.ic_seek01));
         }
     }
 }

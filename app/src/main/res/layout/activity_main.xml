@@ -40,11 +40,9 @@
                 android:id="@+id/tv_inquiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/grey_light"
-                android:drawableTop="@mipmap/ic_down"
-                android:text="按条件查询" />
+                android:background="@mipmap/ic_seek02"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/layout_01"
