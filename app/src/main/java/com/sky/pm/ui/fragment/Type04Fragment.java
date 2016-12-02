@@ -15,7 +15,7 @@ import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
 import com.sky.pm.model.Level;
 import com.sky.pm.ui.BaseFragment;
-import com.sky.pm.ui.adapter.AreaPop;
+import com.sky.pm.ui.dialog.AreaPop;
 import com.sky.pm.ui.adapter.Type04Adapter;
 import com.sky.pm.ui.dialog.BasePop;
 import com.sky.pm.ui.widget.LineChartView;

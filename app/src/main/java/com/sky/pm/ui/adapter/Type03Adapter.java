@@ -29,7 +29,7 @@ public class Type03Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
     @Override
     protected void onAchieveHolder(RecyclerHolder holder, int position) {
         holder.setText(R.id.tv_name, datas.get(position).getStationName());
-        holder.setText(R.id.tv_pm10, datas.get(position).getDataTime());
+        holder.setText(R.id.tv_pm10, datas.get(position).getDataValue());
         int level = datas.get(position).getAQILevel();
         if (level == 1) {
             holder.setText(R.id.tv_level, "优");
@@ -40,7 +40,7 @@ public class Type03Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
         } else if (level == 4) {
             holder.setText(R.id.tv_level, "中度污染");
         }
-        double AQI = datas.get(position).getAQI();
+        int AQI = (int) datas.get(position).getAQI();
         TextView tvAQI1 = holder.getView(R.id.tv_aqi1);
         tvAQI1.setVisibility(View.GONE);
         RelativeLayout layout = holder.getView(R.id.layout);

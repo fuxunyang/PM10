@@ -89,7 +89,7 @@ public class LineChartView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         width = getMeasuredWidth();
         height = screenH / 6;
-        setMeasuredDimension(width,height);
+        setMeasuredDimension(width, height);
     }
 
 
@@ -99,15 +99,35 @@ public class LineChartView extends View {
         if (rateDates == null) return;
         int line = 5;
         int maxTextWidth = 0;//Y轴刻度的最大宽度
-        DecimalFormat df = new DecimalFormat("##0.0##");
         int value = 200;
+        //刻度，间距（y2-y1的值）
+        float scaleY = 50f;
+        float maxValue = Math.max(Float.parseFloat(rateDates.get(0).getDataValue()),
+                Float.parseFloat(rateDates.get(1).getDataValue()));
+        float minValue = Math.min(Float.parseFloat(rateDates.get(0).getDataValue()),
+                Float.parseFloat(rateDates.get(1).getDataValue()));
+        for (int i = 2; i < line; i++) {
+            maxValue = Math.max(maxValue,
+                    Float.parseFloat(rateDates.get(i).getDataValue()));
+            minValue = Math.min(minValue,
+                    Float.parseFloat(rateDates.get(i).getDataValue()));
+        }
+        if (maxValue > value && maxValue < 400) {
+            value = 400;
+            scaleY = 100;
+        }
+        if (maxValue > value && maxValue < 600) {
+            value = 600;
+            scaleY = 150;
+        }
+
+        DecimalFormat df = new DecimalFormat("##0.0##");
         for (int i = 0; i < line; i++) {
             //画Y轴刻度
             Rect boundY = new Rect();
-            String YY = value + "";
+            String YY = (value - i * scaleY) + "";
             textPaint.getTextBounds(YY, 0, YY.length(), boundY);
             maxTextWidth = Math.max(boundY.width(), maxTextWidth);
-            value = value - 50;
         }
         maxTextWidth += 5;
         everyWidth = (width - maxTextWidth) / 12;
@@ -135,7 +155,6 @@ public class LineChartView extends View {
                     textPaint);
             hour += hourOrMin;
         }
-        int valueY = 200;
         for (int i = 0; i < line; i++) {
             //横线
             gridPaint.setColor(Color.parseColor("#ffffff"));
@@ -148,17 +167,16 @@ public class LineChartView extends View {
             }
             //画Y轴刻度
             Rect boundY = new Rect();
-            String YY = valueY + "";
+            String YY = ((int)(value - i * scaleY)) + "";
+
             textPaint.getTextBounds(YY, 0, YY.length(), boundY);
             int boundYH = boundY.height();
             canvas.drawText(YY, 0, radius + i * everyHeigt + boundYH / 2, textPaint);
-            valueY -= 50;
-
         }
         for (int i = 0; i < rateDates.size(); i++) {
             Latest rate = rateDates.get(i);
 
-            float y10 = Float.parseFloat(rate.getDataValue()) / 50;
+            float y10 = 4 - Float.parseFloat(rate.getDataValue()) / scaleY;
             if (i == 0) {
                 path10.moveTo(i * everyWidth + maxTextWidth, radius + y10 * everyHeigt);
             } else {

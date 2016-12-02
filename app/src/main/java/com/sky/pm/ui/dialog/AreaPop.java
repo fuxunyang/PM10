@@ -1,4 +1,4 @@
-package com.sky.pm.ui.adapter;
+package com.sky.pm.ui.dialog;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -7,7 +7,6 @@ import com.sky.adapter.RecyclerAdapter;
 import com.sky.adapter.RecyclerHolder;
 import com.sky.pm.R;
 import com.sky.pm.model.Level;
-import com.sky.pm.ui.dialog.BasePop;
 
 /**
  * @author sky QQ:1136096189

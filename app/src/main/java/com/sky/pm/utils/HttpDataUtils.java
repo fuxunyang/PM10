@@ -200,6 +200,10 @@ public class HttpDataUtils extends HttpUtilsBase {
         });
     }
 
+    /**
+     * 模范网格 查询等级
+     * @param callback
+     */
     public static void NMS_T_CFG_AQIGetAllListByJson(final IDataResultImpl<List<Level>> callback) {
         //http://218.57.204.52:8018/NMS_T_CFG_AQIService.asmx?op=NMS_T_CFG_AQIGetAllListByJson
         RequestParams params = new RequestParams(Constants.BASE_URL + "NMS_T_CFG_AQIService.asmx/NMS_T_CFG_AQIGetAllListByJson");
@@ -339,6 +343,11 @@ public class HttpDataUtils extends HttpUtilsBase {
         });
     }
 
+    /**
+     * 企业风采
+     *
+     * @param callback
+     */
     public static void NewsGetAllListByJson(final IDataResultImpl<List<NewsModel>> callback) {
         RequestParams params = new RequestParams(Constants.BASE_URL + "NewsService.asmx/NewsGetAllListByJson");
         params.setCharset("gbk");
@@ -349,37 +358,4 @@ public class HttpDataUtils extends HttpUtilsBase {
             }
         });
     }
-
-    /**
-     * 注册
-     *
-     * @param TrueName 姓名
-     * @param UserID   身份证号
-     * @param UserName 昵称
-     * @param Pwd      密码
-     * @param AreaID   区域id
-     * @param PHNo     手机
-     * @param callback
-     */
-    public static void tbAppUsersAdd(String TrueName, String UserID, String UserName,
-                                     String Pwd, String AreaID, String PHNo,
-                                     final IDataResultImpl<String> callback) {
-        RequestParams params = new RequestParams(Constants.BASE_URL + "/tbAppUsersAdd");
-        params.addBodyParameter("TrueName", TrueName);
-        params.addBodyParameter("UserID", UserID);
-        params.addBodyParameter("UserName", UserName);
-        params.addBodyParameter("Pwd", Pwd);
-        params.addBodyParameter("AreaID", AreaID);
-        params.addBodyParameter("PHNo", PHNo);
-//        params.setCharset("gbk");
-        x.http().post(params, new RequestCallBack<String>(callback) {
-
-            @Override
-            public void onSuccess(String result) {
-                if (result != null) callback.onSuccessData(result);
-                else callback.onSuccessData(null);
-            }
-        });
-    }
-
 }

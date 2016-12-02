@@ -40,7 +40,7 @@ public class Type04Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
         } else if (level == 4) {
             holder.setText(R.id.tv_level, "中度污染");
         }
-        double AQI = datas.get(position).getAQI();
+        int AQI = (int) datas.get(position).getAQI();
         TextView tvAQI1 = holder.getView(R.id.tv_aqi1);
         tvAQI1.setVisibility(View.GONE);
         RelativeLayout layout = holder.getView(R.id.layout);

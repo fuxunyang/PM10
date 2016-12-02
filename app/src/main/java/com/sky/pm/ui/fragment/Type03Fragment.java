@@ -34,7 +34,7 @@ public class Type03Fragment extends BaseFragment {
     private Type03Adapter adapter;
     private List<Latest> list;
     private List<Latest> day;
-    private int local= 0;
+    private int local = 0;
 
     Handler handler = new Handler() {
         @Override
@@ -59,7 +59,7 @@ public class Type03Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list==null)return;
+                if (list == null) return;
                 Map03Fragment fragment = new Map03Fragment();
                 fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(local).getLatitude()),
                         Double.parseDouble(list.get(local).getLongitude())));
@@ -103,7 +103,7 @@ public class Type03Fragment extends BaseFragment {
         adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                local= position;
+                local = position;
                 getDay(adapter.getDatas().get(position).getStationId());
             }
 

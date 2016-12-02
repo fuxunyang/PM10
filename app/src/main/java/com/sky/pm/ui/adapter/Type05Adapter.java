@@ -10,7 +10,7 @@ import com.sky.pm.model.Latest;
 /**
  * Created by 李彬 on 2016/11/13.
  */
-public class Type05Adapter extends RecyclerAdapter<Latest,RecyclerHolder> {
+public class Type05Adapter extends RecyclerAdapter<Latest, RecyclerHolder> {
     public Type05Adapter(int layoutId) {
         super(layoutId);
     }
@@ -26,10 +26,8 @@ public class Type05Adapter extends RecyclerAdapter<Latest,RecyclerHolder> {
 
     @Override
     protected void onAchieveHolder(RecyclerHolder holder, int position) {
-        holder.setText(R.id.tv_id,position+"");
-        holder.setText(R.id.tv_name,datas.get(position).getStationName());
-        holder.setText(R.id.tv_area,datas.get(position).getStationmn());
-
-
+        holder.setText(R.id.tv_id, position + 1 + "");
+        holder.setText(R.id.tv_name, datas.get(position).getStationName());
+        holder.setText(R.id.tv_area, datas.get(position).getStationmn());
     }
 }
