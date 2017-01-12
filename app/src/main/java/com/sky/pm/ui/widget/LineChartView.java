@@ -106,19 +106,33 @@ public class LineChartView extends View {
                 Float.parseFloat(rateDates.get(1).getDataValue()));
         float minValue = Math.min(Float.parseFloat(rateDates.get(0).getDataValue()),
                 Float.parseFloat(rateDates.get(1).getDataValue()));
-        for (int i = 2; i < line; i++) {
+        for (int i = 2; i < rateDates.size(); i++) {
             maxValue = Math.max(maxValue,
                     Float.parseFloat(rateDates.get(i).getDataValue()));
             minValue = Math.min(minValue,
                     Float.parseFloat(rateDates.get(i).getDataValue()));
         }
-        if (maxValue > value && maxValue < 400) {
+        if (maxValue > 200 && maxValue <= 400) {
             value = 400;
-            scaleY = 100;
-        }
-        if (maxValue > value && maxValue < 600) {
+            scaleY = value / 4;
+        } else if (maxValue > 400 && maxValue <= 600) {
             value = 600;
-            scaleY = 150;
+            scaleY = value / 4;
+        } else if (maxValue > 600 && maxValue <= 800) {
+            value = 800;
+            scaleY = value / 4;
+        } else if (maxValue > 800 && maxValue <= 1000) {
+            value = 1000;
+            scaleY = value / 4;
+        } else if (maxValue > 1000 && maxValue <= 1200) {
+            value = 1200;
+            scaleY = value / 4;
+        } else if (maxValue > 1200 && maxValue <= 1400) {
+            value = 1400;
+            scaleY = value / 4;
+        } else if (maxValue > 1400 && maxValue <= 1600) {
+            value = 1600;
+            scaleY = value / 4;
         }
 
         DecimalFormat df = new DecimalFormat("##0.0##");
@@ -139,6 +153,7 @@ public class LineChartView extends View {
         for (int i = 0; i < 12; i++) {
             //竖线
             if (i == 0) {
+                gridPaint.setColor(Color.parseColor("#ffffff"));
                 canvas.drawLine(i * everyWidth + maxTextWidth, radius,
                         i * everyWidth + maxTextWidth, radius + (line - 1) * everyHeigt,
                         gridPaint);
@@ -160,14 +175,15 @@ public class LineChartView extends View {
             gridPaint.setColor(Color.parseColor("#ffffff"));
             canvas.drawLine(maxTextWidth, radius + i * everyHeigt,
                     width, radius + i * everyHeigt, gridPaint);
-            if (i == 1) {
-                gridPaint.setColor(getResources().getColor(R.color.pie3));
-                canvas.drawLine(maxTextWidth, radius + i * everyHeigt,
-                        width, radius + i * everyHeigt, gridPaint);
-            }
+//            if (i == 1) {
+//                gridPaint.setColor(getResources().getColor(R.color.pie3));
+//                canvas.drawLine(maxTextWidth, radius + i * everyHeigt,
+//                        width, radius + i * everyHeigt, gridPaint);
+//            }
+
             //画Y轴刻度
             Rect boundY = new Rect();
-            String YY = ((int)(value - i * scaleY)) + "";
+            String YY = ((int) (value - i * scaleY)) + "";
 
             textPaint.getTextBounds(YY, 0, YY.length(), boundY);
             int boundYH = boundY.height();
@@ -183,6 +199,11 @@ public class LineChartView extends View {
                 path10.lineTo(i * everyWidth + maxTextWidth, radius + y10 * everyHeigt);
             }
         }
+        float y150 = 4 - 150 / scaleY;
+
+        gridPaint.setColor(getResources().getColor(R.color.pie3));
+        canvas.drawLine(maxTextWidth, radius + y150 * everyHeigt,
+                width, radius + y150 * everyHeigt, gridPaint);
         //开始画出折线
         canvas.drawPath(path10, paint10);
 

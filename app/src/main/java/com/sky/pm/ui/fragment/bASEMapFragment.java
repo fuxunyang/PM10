@@ -58,27 +58,27 @@ public abstract class BaseMapFragment extends BaseFragment {
             switch (msg.what) {
                 case 1:
                     for (int i = 0; i < list.size(); i++) {
-                        double value = 0;
+                        int value =list.get(i).getAQILevel();
                         double lat = Double.parseDouble(list.get(i).getLatitude());
                         double lng = Double.parseDouble(list.get(i).getLongitude());
                         LatLng ll = new LatLng(lat, lng);
                         try {
-                            value = Double.parseDouble(list.get(i).getDataValue());
+                            Double dataValue = Double.parseDouble(list.get(i).getDataValue());
                         } catch (NullPointerException e) {
                             setMark(i, ll, R.drawable.pie12, R.color.black);
                             continue;
                         }
-                        if (value <= 50) {
+                        if (value==1) {
                             setMark(i, ll, R.drawable.pie5, R.color.pie1);
-                        } else if (value >= 51 && value <= 100) {
+                        } else if (value==2) {
                             setMark(i, ll, R.drawable.pie6, R.color.pie2);
-                        } else if (value >= 101 && value <= 150) {
+                        } else if (value==3) {
                             setMark(i, ll, R.drawable.pie7, R.color.pie3);
-                        } else if (value >= 151 && value <= 200) {
+                        } else if (value==4) {
                             setMark(i, ll, R.drawable.pie8, R.color.pie4);
-                        } else if (value >= 201 && value <= 300) {
+                        } else if (value==5) {
                             setMark(i, ll, R.drawable.pie9, R.color.pie5);
-                        } else if (value >= 301) {
+                        } else if (value >= 6) {
                             setMark(i, ll, R.drawable.pie10, R.color.pie6);
                         }
                     }

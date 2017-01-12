@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.sky.adapter.RecyclerAdapter;
 import com.sky.pm.R;
 import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.model.Latest;
@@ -59,10 +60,10 @@ public class Type01Fragment extends BaseFragment {
     private TypeRealAdapter realAdapter;
     //瀑布流布局
     private GridLayoutManager layoutManager;
-//    private Integer[] drawableIds = {R.color.pie1, R.color.pie3, R.color.pie2, R.color.pie4, R.color.pie5, R.color.pie6};
+    //    private Integer[] drawableIds = {R.color.pie1, R.color.pie3, R.color.pie2, R.color.pie4, R.color.pie5, R.color.pie6};
     private Integer[] drawableIds = {R.drawable.pie_bg, R.drawable.pie3_bg, R.drawable.pie2_bg,
-        R.drawable.pie4_bg, R.drawable.pie5_bg, R.drawable.pie6_bg};
-    private String[] texts = {"优[00-50]", "轻度污染[101-150]", "良[51-100]", "中度污染[151-200]", "重度污染[201-300]", "严重污染[301-500]"};
+            R.drawable.pie4_bg, R.drawable.pie5_bg, R.drawable.pie6_bg};
+    private String[] texts = {"优[00-50]", "轻度污染[101-150]", "良[51-100]", "中度污染[151-200]", "重度污染[201-300]", "严重污染[>=301]"};
     private List<PieModel> pies;
     private List<Latest> list;
     private int you = 0;
@@ -71,6 +72,7 @@ public class Type01Fragment extends BaseFragment {
     private int zhong = 0;
     private int zhongdu = 0;
     private int yanzhong = 0;
+    private int local = 0;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -78,23 +80,18 @@ public class Type01Fragment extends BaseFragment {
             switch (msg.what) {
                 case 1:
                     for (int i = 0; i < list.size(); i++) {
-                        double value=0;
-                        try{
-                             value = Double.parseDouble(list.get(i).getDataValue());
-                        }catch (NullPointerException e){
-                            continue;
-                        }
-                        if (value <= 50) {
+                        int value = list.get(i).getAQILevel();
+                        if (value == 1) {
                             you++;
-                        } else if (value >= 51 && value <= 100) {
+                        } else if (value == 2) {
                             liang++;
-                        } else if (value >= 101 && value <= 150) {
+                        } else if (value == 3) {
                             qing++;
-                        } else if (value >= 151 && value <= 200) {
+                        } else if (value == 4) {
                             zhong++;
-                        } else if (value >= 201 && value <= 300) {
+                        } else if (value == 5) {
                             zhongdu++;
-                        } else if (value >= 301) {
+                        } else if (value >= 6) {
                             yanzhong++;
                         }
                     }
@@ -121,10 +118,10 @@ public class Type01Fragment extends BaseFragment {
         activity.toolBar.getTvRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (list==null)return;
+                if (list == null) return;
                 Map01Fragment fragment = new Map01Fragment();
-                fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(0).getLatitude()),
-                        Double.parseDouble(list.get(0).getLongitude())));
+                fragment.setArguments(fragment.setBundle(Double.parseDouble(list.get(local).getLatitude()),
+                        Double.parseDouble(list.get(local).getLongitude())));
                 activity.changeFragment("厂区监测", fragment);
                 activity.setRight("详情");
             }
@@ -190,6 +187,7 @@ public class Type01Fragment extends BaseFragment {
         adapter = new Type01Adapter(R.layout.adapter_pie);
         recyclerView.setAdapter(adapter);
         adapter.setDatas(pies);
+
     }
 
     private void setRealView() {
@@ -199,5 +197,16 @@ public class Type01Fragment extends BaseFragment {
         realAdapter = new TypeRealAdapter(R.layout.adapter_real);
         recyclerView1.setAdapter(realAdapter);
         realAdapter.setDatas(list);
+        realAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                local = position;
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 }
