@@ -33,6 +33,15 @@ public class ApiResponse<T> implements Serializable {
     private T row;           // 单个对象
     private T rows;       // 数组对象
     private int total;    // 总条数
+    private Integer version;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public T getRow() {
         return row;

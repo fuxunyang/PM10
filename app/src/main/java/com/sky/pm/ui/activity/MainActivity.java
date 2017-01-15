@@ -1,10 +1,23 @@
 package com.sky.pm.ui.activity;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -14,7 +27,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.sky.pm.BuildConfig;
 import com.sky.pm.R;
+import com.sky.pm.api.IDataResultImpl;
 import com.sky.pm.ui.BaseActivity;
 import com.sky.pm.ui.fragment.BusinessFragment;
 import com.sky.pm.ui.fragment.LoginFragment;
@@ -23,11 +38,15 @@ import com.sky.pm.ui.fragment.MyFragment;
 import com.sky.pm.ui.fragment.RegisterFragment;
 import com.sky.pm.ui.fragment.WeatherFragment;
 import com.sky.pm.ui.widget.TabTextView;
+import com.sky.pm.utils.HttpDataUtils;
+import com.sky.pm.utils.HttpUtilsBase;
 
+import org.xutils.ex.HttpException;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +97,7 @@ public class MainActivity extends BaseActivity {
         setLeftButton(-1);
         toolBar.getToolbar().setVisibility(View.GONE);
         setFragment();
+        checkUpdate();
 
     }
 
@@ -208,6 +228,115 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_manager, fragment).commit();
     }
 
+    public void checkUpdate() {
+        HttpDataUtils.checkUpdate(new IDataResultImpl<Integer>() {
+            @Override
+            public void onSuccessData(Integer data) {
+                PackageManager packageManager = getPackageManager();
+                try {
+                    PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
+                    int code = packageInfo.versionCode;
+                    if (data != null && code < data) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                                    PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            } else {
+                                downLoadApp();
+                            }
+                        } else {
+                            downLoadApp();
+                        }
+                    }
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            downLoadApp();
+            showToast("允许使用");
+
+        }
+
+    }
+
+    //获取app
+    private void downLoadApp() {
+        final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setTitle("正在下载");
+        progressDialog.setMax(100);
+//        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setProgress(0);
+        progressDialog.show();
+
+        final HttpUtilsBase.RequestHandler downLoad = HttpDataUtils.downLoad(
+                Environment.getExternalStorageDirectory().getPath() + File.separator,
+                new IDataResultImpl<File>() {
+                    @Override
+                    public void onStart() {
+                        progressDialog.show();
+                    }
+
+                    @Override
+                    public void onLoading(long total, long current, boolean isUploading) {
+
+                        int i = (int) (current * 1.0f / total * 100);
+                        progressDialog.setProgress(i);
+//                LogUtils.d("percent="+i);
+//                    progressDialog.incrementProgressBy(i);
+                    }
+
+                    @Override
+                    public void onSuccessData(File data) {
+                        progressDialog.dismiss();
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        //判断是否是AndroidN以及更高的版本
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            Uri contentUri = FileProvider.getUriForFile(MainActivity.this,
+                                    BuildConfig.APPLICATION_ID + ".fileProvider", data);
+                            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+                        } else {
+                            intent.setDataAndType(Uri.fromFile(data), "application/vnd.android.package-archive");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        }
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(HttpException exception, int code) {
+                        progressDialog.dismiss();
+                        showToast("下载失败");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        progressDialog.dismiss();
+                    }
+                });
+
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                downLoad.cancel();
+            }
+        });
+    }
 
     private long lastBack;
 

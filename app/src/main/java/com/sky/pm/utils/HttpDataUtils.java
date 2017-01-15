@@ -14,10 +14,13 @@ import com.sky.pm.model.WeatherEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
+import org.xutils.ex.HttpException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -357,5 +360,97 @@ public class HttpDataUtils extends HttpUtilsBase {
                 callback.onSuccessData(result.getRows());
             }
         });
+    }
+    /**
+     * 检查更新
+     *
+     * @param callback
+     * @return
+     */
+    public static RequestHandler checkUpdate(final IDataResultImpl<Integer> callback) {
+        //http://192.168.1.132:8033/LiHuoService.asmx/
+        RequestParams params = new RequestParams(Constants.BASE_URL + "AppFile/Version.txt");
+        params.setCharset("gbk");
+        // 请求
+        final Callback.Cancelable request = x.http().get(params,
+                new RequestCallBack<ApiResponse>(callback) {
+                    @Override
+                    public void onSuccess(ApiResponse result) {
+                        if (result != null)
+                            callback.onSuccessData(result.getVersion());
+                       else callback.onSuccessData(null);
+                    }
+                });
+        // 处理handler
+        RequestHandler handler = new RequestHandler() {
+            @Override
+            public void cancel() {
+                request.cancel();
+            }
+        };
+        return handler;
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param callback
+     * @return
+     */
+    public static RequestHandler downLoad(String path, final IDataResultImpl<File> callback) {
+        //http://192.168.1.132:8033/LiHuoService.asmx/
+//        RequestParams params = new RequestParams(Constants.BASE_URL+"AppFile/PM10.apk");
+        RequestParams params = new RequestParams("http://218.57.204.52:10001/AppFile/PM10.apk");
+        params.setAutoResume(true);
+        params.setSaveFilePath(path + "PM10.apk");
+//        params.setCharset("gbk");
+
+        // 请求
+        final Callback.Cancelable request = x.http().get(params, new Callback.ProgressCallback<File>() {
+            @Override
+            public void onWaiting() {
+            }
+
+            @Override
+            public void onStarted() {
+                callback.onStart();
+            }
+
+            @Override
+            public void onLoading(long total, long current, boolean isDownloading) {
+                callback.onLoading(total, current, isDownloading);
+            }
+
+            @Override
+            public void onSuccess(File result) {
+                callback.onSuccessData(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                if (ex instanceof HttpException) { // 网络错误
+                } else if (ex instanceof NullPointerException) {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                callback.onCancel();
+            }
+
+            @Override
+            public void onFinished() {
+                callback.onFinish();
+            }
+        });
+        // 处理handler
+        RequestHandler handler = new RequestHandler() {
+            @Override
+            public void cancel() {
+                request.cancel();
+            }
+        };
+        return handler;
     }
 }
