@@ -107,6 +107,11 @@ public class BaseActivity extends AppCompatActivity implements IBase, Toolbar.On
     }
 
 
+    @Override
+    public void initialize() {
+
+    }
+
     /**
      * 判断是否有网络连接,没有返回false
      */
@@ -115,12 +120,10 @@ public class BaseActivity extends AppCompatActivity implements IBase, Toolbar.On
         return NetworkJudgment.isConnected(this);
     }
 
-    @Override
     public void initViews() {
 
     }
 
-    @Override
     public void initData() {
 
     }

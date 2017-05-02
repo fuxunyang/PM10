@@ -74,7 +74,7 @@ public class MyApplication extends Application {
     }
 
     public void showError(int code) {
-        ToastUtils.showError(getApplicationContext(), code);
+//        ToastUtils.showShort(getApplicationContext(), code);
     }
 
     public void showToast(String text) {

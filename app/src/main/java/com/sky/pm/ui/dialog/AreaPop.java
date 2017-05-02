@@ -53,11 +53,6 @@ public class AreaPop extends BasePop<Level> {
                 if (itemClickListener != null)
                     itemClickListener.onItemClick(position);
             }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
         });
     }
 

@@ -127,13 +127,13 @@ public class Type06Fragment extends BaseFragment {
             public void onClick(View v) {
                 String station = activity.tv01.getText().toString().trim();
                 String name = activity.tv02.getText().toString().trim();
-                String begin = activity.bt01.getText().toString().trim()+":00";
-                String end = activity.bt02.getText().toString().trim()+":00";
-                if (begin.equals("开始时间:00"))begin="";
-                if (end.equals("结束时间:00"))end="";
+                String begin = activity.bt01.getText().toString().trim() + ":00";
+                String end = activity.bt02.getText().toString().trim() + ":00";
+                if (begin.equals("开始时间:00")) begin = "";
+                if (end.equals("结束时间:00")) end = "";
                 //yyyy-MM-dd HH:mm:ss  2016-11-22 23:11:24
                 HttpDataUtils.DMS_T_DATA_SOURCEGetListByPageByJson(
-                        station, name,begin,end,
+                        station, name, begin, end,
 //                        "2016-11-21 23:11:24", "2016-11-22 23:11:24",
                         page + "", new IDataResultImpl<List<Latest>>() {
                             @Override
@@ -178,25 +178,32 @@ public class Type06Fragment extends BaseFragment {
 
 
     private void getData() {
-        HttpDataUtils.DMS_T_DATA_SOURCEGetListByPageByJson(page + "", new IDataResultImpl<List<Latest>>() {
-            @Override
-            public void onSuccessData(List<Latest> data) {
-                if (data == null) {
-                    showToast("暂无数据");
-                    return;
-                }
-                if (isRefresh) {
-                    isRefresh = false;
-                    showToast("已刷新");
-                    Toast.makeText(getActivity(), "已刷新", Toast.LENGTH_SHORT).show();
-                }
-                if (data.size() == 0) showToast("暂无数据");
-                if (page == 1) {
-                    adapter.setDatas(data);
-                    recyclerView.smoothScrollToPosition(0);
-                } else adapter.addDatas(data);
-            }
-        });
+        String station = activity.tv01.getText().toString().trim();
+        String name = activity.tv02.getText().toString().trim();
+        String begin = activity.bt01.getText().toString().trim() + ":00";
+        String end = activity.bt02.getText().toString().trim() + ":00";
+        if (begin.equals("开始时间:00")) begin = "";
+        if (end.equals("结束时间:00")) end = "";
+        HttpDataUtils.DMS_T_DATA_SOURCEGetListByPageByJson(station, name, begin, end,
+                page + "", new IDataResultImpl<List<Latest>>() {
+                    @Override
+                    public void onSuccessData(List<Latest> data) {
+                        if (data == null) {
+                            showToast("暂无数据");
+                            return;
+                        }
+                        if (isRefresh) {
+                            isRefresh = false;
+                            showToast("已刷新");
+                            Toast.makeText(getActivity(), "已刷新", Toast.LENGTH_SHORT).show();
+                        }
+                        if (data.size() == 0) showToast("暂无数据");
+                        if (page == 1) {
+                            adapter.setDatas(data);
+                            recyclerView.smoothScrollToPosition(0);
+                        } else adapter.addDatas(data);
+                    }
+                });
     }
 
     private void setRealView() {

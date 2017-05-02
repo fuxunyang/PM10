@@ -124,11 +124,6 @@ public class Type05Fragment extends BaseFragment {
             public void onItemClick(View view, int position) {
                 local= position;
             }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
         });
     }
 

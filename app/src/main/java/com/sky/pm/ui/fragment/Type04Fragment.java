@@ -199,11 +199,6 @@ public class Type04Fragment extends BaseFragment {
                 id = adapter.getDatas().get(position).getStationId();
                 getDay(id);
             }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
         });
     }
 

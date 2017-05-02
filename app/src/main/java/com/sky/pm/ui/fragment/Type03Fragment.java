@@ -106,11 +106,6 @@ public class Type03Fragment extends BaseFragment {
                 local = position;
                 getDay(adapter.getDatas().get(position).getStationId());
             }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
         });
     }
 

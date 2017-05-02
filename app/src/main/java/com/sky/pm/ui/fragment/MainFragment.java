@@ -75,11 +75,6 @@ public class MainFragment extends BaseFragment {
                     activity.setRight("");
                 }
             }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
         });
         adapter.setDatas(myModels);
 
