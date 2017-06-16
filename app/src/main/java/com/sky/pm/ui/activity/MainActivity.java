@@ -91,8 +91,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
+        super.onCreate(savedInstanceState);
         setToolbar("首页");
         setLeftButton(-1);
         toolBar.getToolbar().setVisibility(View.GONE);

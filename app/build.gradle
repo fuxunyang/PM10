@@ -10,6 +10,14 @@ android {
         release {
             storeFile file("dlhc.jks")
             storePassword 'android'
+            keyAlias 'release'
+            keyPassword 'android'
+        }
+        debug {
+            keyAlias 'debug'
+            keyPassword 'android'
+            storeFile file('dlhc.jks')
+            storePassword 'android'
         }
     }
     compileSdkVersion 24
@@ -42,6 +50,7 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+//            signingConfig signingConfigs.debug  //签名
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
@@ -63,9 +72,7 @@ dependencies {
     compile 'org.xutils:xutils:3.1.24'
     compile 'com.sky:apiutils:1.2.27'
     compile 'com.google.code.gson:gson:2.7'
-
     compile 'cn.bmob.android:bmob-sdk:3.4.6'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.okio:okio:1.4.0'
-
 }

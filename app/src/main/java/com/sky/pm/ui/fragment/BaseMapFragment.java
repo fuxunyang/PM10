@@ -14,15 +14,16 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.sky.pm.R;
 import com.sky.pm.model.Latest;
@@ -43,7 +44,7 @@ public abstract class BaseMapFragment extends BaseFragment {
      * MapView 是地图主控件
      */
     @ViewInject(R.id.bmapView)
-    protected MapView mMapView;
+    protected TextureMapView mMapView;
     protected BaiduMap mBaiduMap;
     protected List<Latest> list;
 
@@ -194,6 +195,11 @@ public abstract class BaseMapFragment extends BaseFragment {
                 mBaiduMap.setMyLocationData(locData);
                 mLocClient.stop();
             }
+
+            @Override
+            public void onConnectHotSpotMessage(String s, int i) {
+
+            }
         });
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true); // 打开gps
@@ -204,21 +210,30 @@ public abstract class BaseMapFragment extends BaseFragment {
     }
 
     @Override
-    public void onPause() {
-        // MapView的生命周期与Activity同步，当activity挂起时需调用MapView.onPause()
-        mMapView.onPause();
-        super.onPause();
+    public void onStart() {
+        super.onStart();
+        BMapManager.init();
     }
 
     @Override
     public void onResume() {
+        super.onResume();
+        mMapView.setVisibility(View.VISIBLE);
         // MapView的生命周期与Activity同步，当activity恢复时需调用MapView.onResume()
         mMapView.onResume();
-        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.setVisibility(View.INVISIBLE);
+        // MapView的生命周期与Activity同步，当activity挂起时需调用MapView.onPause()
+        mMapView.onPause();
     }
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         // MapView的生命周期与Activity同步，当activity销毁时需调用MapView.destroy()
         mMapView.onDestroy();
         // 退出时销毁定位
@@ -226,7 +241,6 @@ public abstract class BaseMapFragment extends BaseFragment {
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         mMapView = null;
-        super.onDestroy();
     }
 
 }
