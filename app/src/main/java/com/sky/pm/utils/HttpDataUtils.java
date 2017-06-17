@@ -124,7 +124,6 @@ public class HttpDataUtils extends HttpUtilsBase {
         x.http().post(params, new RequestCallBack<ApiResponse<List<Latest>>>(callback) {
             @Override
             public void onSuccess(ApiResponse<List<Latest>> result) {
-                LogUtil.d(result + "dfsdfdfsdfsd");
                 callback.onSuccessData(result.getRows());
 //                if (result.getTotal() == 0) callback.onSuccessData(false);
 //                else callback.onSuccessData(true);

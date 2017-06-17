@@ -124,19 +124,7 @@ public class DateTimePickDialogUtil implements OnDateChangedListener,
 
 		dateTime = sdf.format(calendar.getTime());
 		ad.setTitle(dateTime);
-		Pm pm= new Pm();
-		pm.setDate(dateTime);
-		pm.save(activity, new SaveListener() {
-			@Override
-			public void onSuccess() {
 
-			}
-
-			@Override
-			public void onFailure(int i, String s) {
-
-			}
-		});
 	}
 
 	/**
